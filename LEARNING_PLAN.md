@@ -2,8 +2,8 @@
 project: checkey01-blog-simple-frontend
 branch: main
 remote: https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git
-current_phase: 2
-current_task: T2
+current_phase: 3
+current_task: T3
 status: in_progress
 last_log: 2026-08-14
 ---
@@ -22,13 +22,13 @@ last_log: 2026-08-14
 | 项目       | checkey01-blog-simple-frontend（本文件所在仓库）                    |
 | 分支       | main                                                                |
 | 远程仓库   | https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git |
-| 当前阶段   | 2（首页文章列表）                                                   |
-| 当前任务   | T2                                                                  |
-| 最近完成   | T1 环境搭建（2026-08-14）                                           |
-| 最后提交   | feat: 初始化项目                                                    |
+| 当前阶段   | 3（文章详情页）                                                     |
+| 当前任务   | T3                                                                  |
+| 最近完成   | T2 首页文章列表（2026-08-14）                                       |
+| 最后提交   | docs: 添加 FastAPI 后端任务 T7/T8                                   |
 | 未提交改动 | 无（每次收工必须提交推送）                                          |
 
-**下一步要做**：完成任务 T2（见下方任务清单），完成标志：浏览器首页显示「我的博客」和 3 篇文章。
+**下一步要做**：完成任务 T3（见下方任务清单），完成标志：点击首页文章进入详情页，Markdown 正常渲染、代码高亮。
 
 ## 关键决策（不要擅自更改）
 
@@ -86,22 +86,22 @@ last_log: 2026-08-14
 
 验证证据：`git log --oneline` 包含 `feat: 初始化项目`；`npm run dev` 能打开页面；GitHub 仓库存在。
 
-### T2 首页文章列表 🔄（当前任务）
+### T2 首页文章列表 ✅（2026-08-14 完成）
 
 **目标**：首页用数据渲染文章列表。
 
 **涉及文件**：
 
 - 新建 `src/data/articles.ts`（Article 接口 + 3 篇示例文章）
-- 新建 `src/views/HomeView.vue`（`v-for` 渲染标题/日期/摘要）
-- 修改 `src/router/index.ts`（添加 `/` → HomeView）
+- 新建 `src/views/HomeViews.vue`（`v-for` 渲染标题/日期/摘要）
+- 修改 `src/router/index.ts`（添加 `/` → HomeViews）
 - 修改 `src/App.vue`（替换为 `<RouterView />`）
 
 **完成标志**：`npm run dev` 后首页显示「我的博客」+ 3 篇文章；`npm run lint` 不新增错误。
 
 **本任务概念**：`interface`、`v-for`、`{{ }}`、`RouterView`。
 
-### T3 文章详情页（预计 2~3 天）
+### T3 文章详情页 🔄（当前任务，预计 2~3 天）
 
 **目标**：点击文章进入详情页，Markdown 渲染 + 代码高亮。
 
@@ -186,6 +186,15 @@ last_log: 2026-08-14
 - 遇到的问题：vite 命令找不到（未装依赖）；ERESOLVE 版本冲突（用 `--legacy-peer-deps` 解决）
 - 遗留事项：无
 - 下一步：T2 首页文章列表
+
+### 2026-08-14（第 2 天）— T2 完成
+
+- 任务编号：T2
+- 今天做了什么：创建 `src/data/articles.ts`（Article 接口 + 3 篇示例文章）、首页列表页、首页路由、`App.vue` 改为路由出口，并提交 `feat: 首页显示文章列表`
+- 学到了什么：`v-for` 循环、模板插值 `{{ }}`、`<script setup>` 引入数据、`RouterView` 路由出口
+- 遇到的问题：未记录
+- 遗留事项：`HomeViews.vue` 文件名与计划（HomeView.vue）不一致，不影响运行，后续可统一
+- 下一步：T3 文章详情页
 
 ## 报错速查
 
