@@ -36,6 +36,7 @@ last_log: 2026-08-14
 - 文章内容用 Markdown 文件管理，数据模型为 `Article` 接口
 - 暂不引入 Pinia、单元测试
 - 安装依赖遇到 ERESOLVE 版本冲突时，用 `npm install --legacy-peer-deps`
+- 后续计划引入 FastAPI 后端（见 T7 / T8）；前端页面只通过 `src/api/articles.ts` 服务层取数据
 
 ## Codex 操作协议
 
@@ -126,9 +127,42 @@ last_log: 2026-08-14
 
 **完成标志**：整体像个正常博客。
 
+### T7 FastAPI 最小后端（预计 3~5 天）
+
+**目标**：用 FastAPI 提供文章接口，前端数据来自后端。
+
+**前置条件**：前端先加 `src/api/articles.ts` 服务层——页面只调用 `getArticles()` / `getArticle(slug)`，不直接访问本地数据。
+
+**涉及**：
+
+- 新建独立后端目录（如 `G:\blog-together\checkey01-blog-backend\`），不要和已有项目混用
+- 安装 `fastapi` + `uvicorn`
+- `main.py` 提供 `GET /api/articles`（列表）和 `GET /api/articles/{slug}`（详情）
+- 后端从 `content/` 目录读取 `.md` 文件并解析 frontmatter
+- 前端 `vite.config.ts` 配置代理 `/api` → `http://localhost:8000`
+- 前端 `src/api/articles.ts` 改用 `fetch('/api/articles')`
+
+**完成标志**：后端 `uvicorn main:app --reload` 与前端 `npm run dev` 同时运行时，首页文章列表来自 FastAPI。
+
+**本任务概念**：REST API、JSON、Pydantic 模型、开发代理（跨域）。
+
+### T8 文章数据迁移（预计 1~2 天）
+
+**目标**：所有文章从前端本地数据迁移到后端 `content/` 目录。
+
+**涉及**：
+
+- 把示例文章转成 `content/*.md`（frontmatter 写 title / date / tags）
+- 删除前端 `src/data/articles.ts` 中的示例数据（保留 `Article` 接口，或移动到共享契约位置）
+- 前端列表、详情、标签全部改走服务层
+
+**完成标志**：前端不再包含任何本地文章数据；增删文章只需修改后端 Markdown 文件。
+
+**本任务概念**：数据与视图分离、前后端契约（`Article` 字段结构）。
+
 ### 后续（可选）
 
-搜索、暗色模式、部署上线、评论功能。
+评论、登录、后台发文（基于 FastAPI + 数据库）、搜索、暗色模式、部署上线。
 
 ## 开发日志
 
