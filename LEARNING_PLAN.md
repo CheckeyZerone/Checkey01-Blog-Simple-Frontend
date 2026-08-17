@@ -28,7 +28,19 @@ last_log: 2026-08-17
 | 最后提交   | feat: 抽取 PostCard 组件，列表按日期倒序并显示阅读时间              |
 | 未提交改动 | 无（每次收工必须提交推送）                                          |
 
-**下一步要做**：完成任务 T5（见下方任务清单），完成标志：点标签看到对应文章列表。
+**下一步要做**：先解决「未解决问题」#1（TypeScript 类型报错），再完成任务 T5（完成标志：点标签看到对应文章列表）。
+
+## 未解决问题
+
+### #1 T5 阻塞：TypeScript 报错 `Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature`
+
+- **出现位置**：`src/utils/buffer-polyfill.ts`（`globalThis.Buffer = Buffer` 这一行）
+- **背景**：gray-matter 在浏览器运行时依赖 Node 的 `Buffer`，浏览器没有，所以用 `buffer` 包补了 polyfill；运行时能生效，但 TypeScript 不允许直接给 `globalThis` 挂新属性，导致类型检查/构建不通过
+- **当前状态**：⚠️ `src/main.ts` 还没有 `import './utils/buffer-polyfill'`，补丁未接线，首页仍可能空白
+- **候选修法（二选一）**：
+  - 快速修（保留 gray-matter）：在 `buffer-polyfill.ts` 里先把 globalThis 转成可加键的类型，再挂 Buffer；并在 `src/main.ts` 顶部加 `import './utils/buffer-polyfill'`
+  - 根治（推荐）：卸载 `gray-matter` 和 `buffer`，改用浏览器原生兼容的 `yaml` 包 + 自写 `src/utils/frontmatter.ts` 解析 frontmatter，删除 polyfill 相关文件
+- **验证方式**：`npm run type-check` 和 `npm run build` 通过；`npm run dev` 后首页显示 3 篇文章、点标签能筛选
 
 ## 关键决策（不要擅自更改）
 
@@ -130,7 +142,7 @@ last_log: 2026-08-17
 
 **本任务概念**：组件化、props（父 → 子）、emits（子 → 父）、`defineProps` / `defineEmits`、`sort` + `localeCompare`、flex 布局（`gap`）、CSS `transition`。
 
-### T5 frontmatter 与标签（预计 2~3 天）
+### T5 frontmatter 与标签 🔄（进行中，被「未解决问题」#1 阻塞）
 
 **目标**：文章用 frontmatter 管理元数据（gray-matter），标签页按标签过滤。
 
@@ -228,6 +240,15 @@ last_log: 2026-08-17
 - 遇到的问题：误把 `useRoute` 当 `useRouter` 用（`route.push` 不存在，跳转要用 `router.push`）；`emint` 拼写错误；`.post-list` 样式写了但模板没包容器导致不生效
 - 遗留事项：HomeViews 里有注释掉的旧 `<ul>` 代码（可后续删除）；`HomeViews.vue` 文件名与计划不一致
 - 下一步：T5 frontmatter 与标签
+
+### 2026-08-17（第 5 天）— T5 进行中（被问题 #1 阻塞）
+
+- 任务编号：T5
+- 今天做了什么：创建 3 个 Markdown 文章文件（`src/contents/`，带 frontmatter）；`articles.ts` 改为从 Markdown 读取；新增标签页 `TagsView` / `TagPostsView`；路由、卡片、详情页接上标签；修好标签筛选遍历对象和 `.tags` 样式笔误
+- 学到了什么：`import.meta.glob` 批量导入、gray-matter 解析 frontmatter、动态路由参数 `useRoute`、`@click.stop` 阻止事件冒泡、`flex-wrap` + `gap` 排版
+- 遇到的问题：gray-matter 在浏览器运行时缺 Buffer（`ReferenceError: Buffer is not defined`）；用 buffer polyfill 解决运行时后，又出现 TypeScript 类型报错（问题 #1，见「未解决问题」）
+- 遗留事项：问题 #1 未解决；HomeViews 里注释掉的旧 `<ul>` 代码可后续删除；`HomeViews.vue` 文件名与计划不一致
+- 下一步：解决「未解决问题」#1，然后验证 T5 完成标志（点标签看到对应文章列表）
 
 ## 报错速查
 

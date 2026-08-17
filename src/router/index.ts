@@ -12,8 +12,18 @@ const router = createRouter({
       path: '/post/:slug',
       name: 'post',
       component: () => import('../views/PostView.vue'),
-    }
+    },
+    {
+      path: '/tags',
+      name: 'tags',
+      component: () => import('../views/TagsView.vue'),
+    },
+    {
+      path: '/tags/:tag',
+      name: 'tag-post',
+      component: () => import('../views/TagPostsView.vue'),
+    },
   ],
 })
 
-export default router;
+export default router
