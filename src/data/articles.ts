@@ -14,7 +14,7 @@ export const articles: Article[] = [
     date: '2026-08-14',
     tags: ['vue', '随笔'],
     excerpt: '欢迎来到我的博客，这是第一篇文章。',
-    content: '# 第一篇博客\n\n你好，Vue 3！',
+    content: '# 第一篇博客\n\n你好，Vue 3！\n```python\nprint("hello world!")\n```',
   },
   {
     slug: 'markdown-notes',
@@ -22,7 +22,7 @@ export const articles: Article[] = [
     date: '2026-08-15',
     tags: ['markdown'],
     excerpt: '记录 Markdown 的常用语法。',
-    content: '# Markdown\n\n## 标题\n\n- 列表\n- 加粗 **bold**',
+    content: '# Markdown\n\n## 标题\n\n- 列表\n- 加粗 **bold**\n- $E = mc^2$',
   },
   {
     slug: 'blog-plan',

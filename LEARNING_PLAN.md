@@ -3,9 +3,9 @@ project: checkey01-blog-simple-frontend
 branch: main
 remote: https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git
 current_phase: 3
-current_task: T3
+current_task: T4
 status: in_progress
-last_log: 2026-08-14
+last_log: 2026-08-17
 ---
 
 # 学习计划与开发日志
@@ -23,17 +23,19 @@ last_log: 2026-08-14
 | 分支       | main                                                                |
 | 远程仓库   | https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git |
 | 当前阶段   | 3（文章详情页）                                                     |
-| 当前任务   | T3                                                                  |
-| 最近完成   | T2 首页文章列表（2026-08-14）                                       |
-| 最后提交   | docs: 添加 FastAPI 后端任务 T7/T8                                   |
+| 当前任务   | T4                                                                  |
+| 最近完成   | T3 文章详情页（2026-08-17）                                         |
+| 最后提交   | feat: 文章详情页支持 Markdown 渲染、代码高亮与 LaTeX 公式           |
 | 未提交改动 | 无（每次收工必须提交推送）                                          |
 
-**下一步要做**：完成任务 T3（见下方任务清单），完成标志：点击首页文章进入详情页，Markdown 正常渲染、代码高亮。
+**下一步要做**：完成任务 T4（见下方任务清单），完成标志：列表页由 PostCard 卡片组件构成、按日期倒序、显示阅读时间。
 
 ## 关键决策（不要擅自更改）
 
 - 技术栈：Vite + Vue 3 + TypeScript + Vue Router，以 `.vue` 单文件组件为主，不用 JSX
 - 文章内容用 Markdown 文件管理，数据模型为 `Article` 接口
+- Markdown 渲染方案：markdown-it（v15）+ highlight.js（github 主题）+ markdown-it-texmath（KaTeX 公式，`$...$` / `$$...$$`）+ DOMPurify 清洗（`USE_PROFILES: { html, mathMl, svg }`）；渲染入口统一在 `src/utils/markdown.ts`
+- markdown-it-texmath 无官方类型声明，项目内用 `src/markdown-it-texmath.d.ts` 补充
 - 暂不引入 Pinia、单元测试
 - 安装依赖遇到 ERESOLVE 版本冲突时，用 `npm install --legacy-peer-deps`
 - 后续计划引入 FastAPI 后端（见 T7 / T8）；前端页面只通过 `src/api/articles.ts` 服务层取数据
@@ -101,13 +103,19 @@ last_log: 2026-08-14
 
 **本任务概念**：`interface`、`v-for`、`{{ }}`、`RouterView`。
 
-### T3 文章详情页 🔄（当前任务，预计 2~3 天）
+### T3 文章详情页 ✅（2026-08-17 完成）
 
-**目标**：点击文章进入详情页，Markdown 渲染 + 代码高亮。
+**目标**：点击文章进入详情页，Markdown 渲染 + 代码高亮 + LaTeX 公式。
 
-**涉及**：安装 `markdown-it` + `highlight.js`；路由 `/post/:slug`；详情页组件；列表加跳转。
+**涉及**：
 
-**完成标志**：首页 → 详情页 → 正文排版正常、代码高亮。
+- 安装 `markdown-it` + `highlight.js` + `katex` + `markdown-it-texmath` + `dompurify`
+- 新建 `src/utils/markdown.ts`（渲染 + 高亮 + 公式 + 清洗）、`src/views/PostView.vue`、`src/markdown-it-texmath.d.ts`
+- 修改 `src/router/index.ts`（`/post/:slug`）、`src/views/HomeViews.vue`（列表跳转）、`src/data/articles.ts`（测试内容）
+
+**完成标志**：首页 → 详情页 → 正文排版正常、代码高亮、公式渲染；`npm run type-check` / `npm run lint` 无错误。
+
+**本任务概念**：`computed`、`useRoute()`、`v-html`、`RouterLink`、`:key`、scoped 与 `:deep()`、回调函数、markdown-it 插件机制。
 
 ### T4 组件拆分与列表优化（预计 2 天）
 
@@ -196,6 +204,15 @@ last_log: 2026-08-14
 - 遗留事项：`HomeViews.vue` 文件名与计划（HomeView.vue）不一致，不影响运行，后续可统一
 - 下一步：T3 文章详情页
 
+### 2026-08-17（第 3 天）— T3 完成
+
+- 任务编号：T3
+- 今天做了什么：安装 markdown-it + highlight.js + katex + markdown-it-texmath + dompurify；新建 `src/utils/markdown.ts`（渲染 + 高亮 + 公式 + 清洗）、详情页 `PostView.vue`、类型声明 `src/markdown-it-texmath.d.ts`；路由加 `/post/:slug`；首页列表加跳转；文章内容加入代码块与公式测试
+- 学到了什么：markdown-it 配置与默认导入（v15 命名导出是纯类型，TS1485）；highlight.js 的 `hljs.highlight().value` 与 CSS 主题；KaTeX/texmath 插件挂载；动态路由 `useRoute()`、`find()`；`v-html` 与 scoped `:deep()`；回调函数
+- 遇到的问题：npm ERESOLVE（`--legacy-peer-deps` 解决）；`@vscode/markdown-it-katex` 是 CJS 产物导致 `plugin.apply is not a function`（换用 markdown-it-texmath 解决）；markdown-it-texmath 无类型声明（补 `.d.ts` 解决）；旧 dev server 缓存导致跳转失败（重启解决）
+- 遗留事项：`HomeViews.vue` 文件名与计划不一致；正文美元金额 `$` 与公式分隔符冲突需用 `\$` 转义；KaTeX 输出经 DOMPurify 会去掉 `<eq>`/`<eqn>` 外壳（不影响显示）
+- 下一步：T4 组件拆分与列表优化
+
 ## 报错速查
 
 | 报错                                         | 原因         | 解决                             |
@@ -203,3 +220,6 @@ last_log: 2026-08-14
 | `'vite' 不是内部或外部命令`                  | 依赖未安装   | `npm install`                    |
 | `ERESOLVE unable to resolve dependency tree` | 依赖版本冲突 | `npm install --legacy-peer-deps` |
 | `src refspec main does not match any`        | 还没有提交   | 先 `git add .` + `git commit`    |
+| `plugin.apply is not a function`             | markdown-it 插件导入后不是函数（CJS 产物） | 换用导出干净的插件（如 markdown-it-texmath） |
+| `TS7016 Could not find a declaration file`   | 包无类型声明 | 项目内补 `.d.ts`（如 `src/markdown-it-texmath.d.ts`） |
+| `'MarkdownIt' cannot be used as a value`     | 值/类型导入混淆 | 默认导入构造函数，`import type` 导入实例类型 |
