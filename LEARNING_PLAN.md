@@ -3,7 +3,7 @@ project: checkey01-blog-simple-frontend
 branch: main
 remote: https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git
 current_phase: 3
-current_task: T4
+current_task: T5
 status: in_progress
 last_log: 2026-08-17
 ---
@@ -23,12 +23,12 @@ last_log: 2026-08-17
 | 分支       | main                                                                |
 | 远程仓库   | https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git |
 | 当前阶段   | 3（文章详情页）                                                     |
-| 当前任务   | T4                                                                  |
-| 最近完成   | T3 文章详情页（2026-08-17）                                         |
-| 最后提交   | feat: 文章详情页支持 Markdown 渲染、代码高亮与 LaTeX 公式           |
+| 当前任务   | T5                                                                  |
+| 最近完成   | T4 组件拆分与列表优化（2026-08-17）                                 |
+| 最后提交   | feat: 抽取 PostCard 组件，列表按日期倒序并显示阅读时间              |
 | 未提交改动 | 无（每次收工必须提交推送）                                          |
 
-**下一步要做**：完成任务 T4（见下方任务清单），完成标志：列表页由 PostCard 卡片组件构成、按日期倒序、显示阅读时间。
+**下一步要做**：完成任务 T5（见下方任务清单），完成标志：点标签看到对应文章列表。
 
 ## 关键决策（不要擅自更改）
 
@@ -117,11 +117,18 @@ last_log: 2026-08-17
 
 **本任务概念**：`computed`、`useRoute()`、`v-html`、`RouterLink`、`:key`、scoped 与 `:deep()`、回调函数、markdown-it 插件机制。
 
-### T4 组件拆分与列表优化（预计 2 天）
+### T4 组件拆分与列表优化 ✅（2026-08-17 完成）
 
 **目标**：抽取 `PostCard.vue`（学习 props/emits），按日期倒序，显示阅读时间。
 
-**完成标志**：列表页由卡片组件构成，可复用。
+**涉及**：
+
+- 新建 `src/components/PostCard.vue`（props 接收文章、emits 通知父组件、computed 计算阅读时间）
+- 修改 `src/views/HomeViews.vue`（`sortedArticles` 按日期倒序、`<PostCard>` 渲染、`@select` 跳转）
+
+**完成标志**：列表页由卡片组件构成，可复用；首页顺序为 `blog-plan` → `markdown-notes` → `hello-vue`，卡片显示阅读时间；`npm run type-check` / `npm run lint` 无错误。
+
+**本任务概念**：组件化、props（父 → 子）、emits（子 → 父）、`defineProps` / `defineEmits`、`sort` + `localeCompare`、flex 布局（`gap`）、CSS `transition`。
 
 ### T5 frontmatter 与标签（预计 2~3 天）
 
@@ -213,6 +220,15 @@ last_log: 2026-08-17
 - 遗留事项：`HomeViews.vue` 文件名与计划不一致；正文美元金额 `$` 与公式分隔符冲突需用 `\$` 转义；KaTeX 输出经 DOMPurify 会去掉 `<eq>`/`<eqn>` 外壳（不影响显示）
 - 下一步：T4 组件拆分与列表优化
 
+### 2026-08-17（第 4 天）— T4 完成
+
+- 任务编号：T4
+- 今天做了什么：新建 `src/components/PostCard.vue`（props 收文章、emits 发 select、computed 算阅读时间），首页改用卡片组件渲染并按日期倒序排序
+- 学到了什么：组件拆分与单向数据流（父传子用 props，子通知父用 emits）、`defineProps` / `defineEmits` 的类型写法、`sort` + `localeCompare` 排序、flex 容器（`flex-direction: column` + `gap`）、CSS `transition` 过渡
+- 遇到的问题：误把 `useRoute` 当 `useRouter` 用（`route.push` 不存在，跳转要用 `router.push`）；`emint` 拼写错误；`.post-list` 样式写了但模板没包容器导致不生效
+- 遗留事项：HomeViews 里有注释掉的旧 `<ul>` 代码（可后续删除）；`HomeViews.vue` 文件名与计划不一致
+- 下一步：T5 frontmatter 与标签
+
 ## 报错速查
 
 | 报错                                         | 原因         | 解决                             |
@@ -223,3 +239,4 @@ last_log: 2026-08-17
 | `plugin.apply is not a function`             | markdown-it 插件导入后不是函数（CJS 产物） | 换用导出干净的插件（如 markdown-it-texmath） |
 | `TS7016 Could not find a declaration file`   | 包无类型声明 | 项目内补 `.d.ts`（如 `src/markdown-it-texmath.d.ts`） |
 | `'MarkdownIt' cannot be used as a value`     | 值/类型导入混淆 | 默认导入构造函数，`import type` 导入实例类型 |
+| `Property 'push' does not exist on type 'RouteLocationNormalizedLoaded'` | 把 `useRoute()` 当 `useRouter()` 用 | `route` 只读当前地址；跳转用 `useRouter()` 的 `router.push()` |
