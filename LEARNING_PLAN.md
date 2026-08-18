@@ -22,21 +22,21 @@ last_log: 2026-08-17
 | 项目       | checkey01-blog-simple-frontend（本文件所在仓库）                    |
 | 分支       | main                                                                |
 | 远程仓库   | https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git |
-| 当前阶段   | 3（文章详情页）                                                     |
+| 当前阶段   | 4（标签筛选）                                                       |
 | 当前任务   | T5                                                                  |
 | 最近完成   | T4 组件拆分与列表优化（2026-08-17）                                 |
-| 最后提交   | feat: 抽取 PostCard 组件，列表按日期倒序并显示阅读时间              |
+| 最后提交   | fix: 用 yaml 替换 gray-matter 修复浏览器 Buffer 问题                |
 | 未提交改动 | 无（每次收工必须提交推送）                                          |
 
-**下一步要做**：先解决「未解决问题」#1（TypeScript 类型报错），再完成任务 T5（完成标志：点标签看到对应文章列表）。
+**下一步要做**：继续完成任务 T5——`npm run dev` 验证完成标志（点标签看到对应文章列表），通过后进入 T6 布局与样式。
 
-## 未解决问题
+## 问题记录
 
-### #1 T5 阻塞：TypeScript 报错 `Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature`
+### #1（已解决 2026-08-18）gray-matter 缺 Buffer 引发的类型报错
 
 - **出现位置**：`src/utils/buffer-polyfill.ts`（`globalThis.Buffer = Buffer` 这一行）
 - **背景**：gray-matter 在浏览器运行时依赖 Node 的 `Buffer`，浏览器没有，所以用 `buffer` 包补了 polyfill；运行时能生效，但 TypeScript 不允许直接给 `globalThis` 挂新属性，导致类型检查/构建不通过
-- **当前状态**：⚠️ `src/main.ts` 还没有 `import './utils/buffer-polyfill'`，补丁未接线，首页仍可能空白
+- **解决状态**：✅ 已解决（2026-08-18）。采用根治方案：新增 `src/utils/frontmatter.ts`（`yaml` 解析），`articles.ts` 改用 `parseFrontMatter`，删除 `buffer-polyfill.ts`，卸载 `gray-matter` 和 `buffer`；`npm run type-check` 已通过
 - **候选修法（二选一）**：
   - 快速修（保留 gray-matter）：在 `buffer-polyfill.ts` 里先把 globalThis 转成可加键的类型，再挂 Buffer；并在 `src/main.ts` 顶部加 `import './utils/buffer-polyfill'`
   - 根治（推荐）：卸载 `gray-matter` 和 `buffer`，改用浏览器原生兼容的 `yaml` 包 + 自写 `src/utils/frontmatter.ts` 解析 frontmatter，删除 polyfill 相关文件
@@ -46,6 +46,7 @@ last_log: 2026-08-17
 
 - 技术栈：Vite + Vue 3 + TypeScript + Vue Router，以 `.vue` 单文件组件为主，不用 JSX
 - 文章内容用 Markdown 文件管理，数据模型为 `Article` 接口
+- frontmatter 解析：`yaml` 包 + 自写 `src/utils/frontmatter.ts`（浏览器原生兼容，不依赖 Node Buffer；不要再用 gray-matter）
 - Markdown 渲染方案：markdown-it（v15）+ highlight.js（github 主题）+ markdown-it-texmath（KaTeX 公式，`$...$` / `$$...$$`）+ DOMPurify 清洗（`USE_PROFILES: { html, mathMl, svg }`）；渲染入口统一在 `src/utils/markdown.ts`
 - markdown-it-texmath 无官方类型声明，项目内用 `src/markdown-it-texmath.d.ts` 补充
 - 暂不引入 Pinia、单元测试
@@ -142,9 +143,9 @@ last_log: 2026-08-17
 
 **本任务概念**：组件化、props（父 → 子）、emits（子 → 父）、`defineProps` / `defineEmits`、`sort` + `localeCompare`、flex 布局（`gap`）、CSS `transition`。
 
-### T5 frontmatter 与标签 🔄（进行中，被「未解决问题」#1 阻塞）
+### T5 frontmatter 与标签 🔄（当前任务，进行中）
 
-**目标**：文章用 frontmatter 管理元数据（gray-matter），标签页按标签过滤。
+**目标**：文章用 frontmatter 管理元数据（yaml 解析），标签页按标签过滤。
 
 **完成标志**：点标签看到对应文章列表。
 
@@ -250,12 +251,22 @@ last_log: 2026-08-17
 - 遗留事项：问题 #1 未解决；HomeViews 里注释掉的旧 `<ul>` 代码可后续删除；`HomeViews.vue` 文件名与计划不一致
 - 下一步：解决「未解决问题」#1，然后验证 T5 完成标志（点标签看到对应文章列表）
 
+### 2026-08-18（第 6 天）— 问题 #1 解决，T5 继续
+
+- 任务编号：T5
+- 今天做了什么：根治 gray-matter 的 Buffer 问题——新增 `src/utils/frontmatter.ts`（`yaml` 解析 frontmatter），`articles.ts` 改用 `parseFrontMatter`，删除 `buffer-polyfill.ts`，卸载 `gray-matter` 和 `buffer`
+- 学到了什么：浏览器不能直接跑 Node 专用库；TypeScript 6 把正则捕获组类型定为 `string | undefined`，需要显式判断后再用；`yaml` 库浏览器原生兼容
+- 遇到的问题：`frontmatter.ts` 里 `parse(yamlText)` 报 `string | undefined`（用 `yamlText === undefined` 守卫解决）
+- 遗留事项：T5 完成标志待验证（点标签看到对应文章列表）；HomeViews 注释掉的旧代码、`HomeViews.vue` 文件名与计划不一致等旧事项
+- 下一步：验证 T5 完成标志，完成后推进 T6 布局与样式
+
 ## 报错速查
 
 | 报错                                         | 原因         | 解决                             |
 | -------------------------------------------- | ------------ | -------------------------------- |
 | `'vite' 不是内部或外部命令`                  | 依赖未安装   | `npm install`                    |
 | `ERESOLVE unable to resolve dependency tree` | 依赖版本冲突 | `npm install --legacy-peer-deps` |
+| 浏览器报 `ReferenceError: Buffer is not defined`（gray-matter） | 浏览器里用了 Node 专用库 | 改用 `yaml` 解析 frontmatter，不引入 gray-matter |
 | `src refspec main does not match any`        | 还没有提交   | 先 `git add .` + `git commit`    |
 | `plugin.apply is not a function`             | markdown-it 插件导入后不是函数（CJS 产物） | 换用导出干净的插件（如 markdown-it-texmath） |
 | `TS7016 Could not find a declaration file`   | 包无类型声明 | 项目内补 `.d.ts`（如 `src/markdown-it-texmath.d.ts`） |
