@@ -1,7 +1,29 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AppFooter from './components/AppFooter.vue'
+import AppHeader from './components/AppHeader.vue'
+</script>
 
 <template>
-  <RouterView />
+  <div class="layout">
+    <AppHeader />
+    <main class="content">
+      <RouterView />
+    </main>
+    <AppFooter />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.layout {
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+  width: 100%;
+  min-width: 48rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem;
+}
+</style>
