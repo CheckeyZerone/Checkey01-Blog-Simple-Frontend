@@ -28,7 +28,7 @@ last_log: 2026-08-18
 | 最后提交   | feat: T6.3 响应式适配                                              |
 | 未提交改动 | 无（每次收工必须提交推送）                                          |
 
-**下一步要做**：开始任务 T7（FastAPI 最小后端）——先在前端加 `src/api/articles.ts` 服务层，再搭建后端接口。
+**下一步要做**：开始任务 T7——前端服务层 + 前后端 API 契约（后端实现另作打算，不写在本仓库）。
 
 ## 问题记录
 
@@ -51,7 +51,7 @@ last_log: 2026-08-18
 - markdown-it-texmath 无官方类型声明，项目内用 `src/markdown-it-texmath.d.ts` 补充
 - 暂不引入 Pinia、单元测试
 - 安装依赖遇到 ERESOLVE 版本冲突时，用 `npm install --legacy-peer-deps`
-- 后续计划引入 FastAPI 后端（见 T7 / T8）；前端页面只通过 `src/api/articles.ts` 服务层取数据
+- 项目边界：本仓库只做**前端**和**前后端 API 交互层**（服务层 + 接口契约）；后端实现（FastAPI 服务端、数据库等）另行规划，**不写进本仓库**。前端页面只通过 `src/api/articles.ts` 服务层取数据
 
 ## Codex 操作协议
 
@@ -161,28 +161,28 @@ last_log: 2026-08-18
 
 **完成标志**：整体像个正常博客。
 
-### T7 FastAPI 最小后端 🔄（当前任务，预计 3~5 天）
+### T7 前端服务层与 API 契约 🔄（当前任务，预计 2~3 天）
 
-**目标**：用 FastAPI 提供文章接口，前端数据来自后端。
+**目标**：做好前端的数据服务层和前后端 API 契约，让数据源可以随时从"本地数据"切换为"后端接口"（后端实现另作打算，不写在本仓库）。
 
 **前置条件**：前端先加 `src/api/articles.ts` 服务层——页面只调用 `getArticles()` / `getArticle(slug)`，不直接访问本地数据。
 
 **涉及**：
 
-- 新建独立后端目录（如 `G:\blog-together\checkey01-blog-backend\`），不要和已有项目混用
-- 安装 `fastapi` + `uvicorn`
-- `main.py` 提供 `GET /api/articles`（列表）和 `GET /api/articles/{slug}`（详情）
-- 后端从 `content/` 目录读取 `.md` 文件并解析 frontmatter
-- 前端 `vite.config.ts` 配置代理 `/api` → `http://localhost:8000`
-- 前端 `src/api/articles.ts` 改用 `fetch('/api/articles')`
+- 新建 `src/api/articles.ts`：定义 API 契约（`Article` 等字段结构）与 `getArticles()` / `getArticle(slug)`；当前实现返回本地数据（`src/contents`），后端就绪后只需把实现改为 `fetch('/api/articles')`
+- 页面（首页 / 详情 / 标签）全部改走服务层，不再直接访问本地数据
+- 配置 `vite.config.ts` 开发代理 `/api` → `http://localhost:8000`（为对接预留）
+- 把接口契约（端点 + 请求/响应字段）记录清楚，供"另作打算"的后端仓库实现
 
-**完成标志**：后端 `uvicorn main:app --reload` 与前端 `npm run dev` 同时运行时，首页文章列表来自 FastAPI。
+**完成标志**：页面全部通过服务层取数；切换数据源只需改 `src/api/articles.ts` 一处；接口契约已明确记录。
 
-**本任务概念**：REST API、JSON、Pydantic 模型、开发代理（跨域）。
+**本任务概念**：REST API、前后端契约、服务层（数据源切换）、开发代理（跨域）。
 
 ### T8 文章数据迁移（预计 1~2 天）
 
 **目标**：所有文章从前端本地数据迁移到后端 `content/` 目录。
+
+> 注：依赖"另作打算"的后端仓库提供接口后再执行；本仓库只负责前端的切换。
 
 **涉及**：
 
