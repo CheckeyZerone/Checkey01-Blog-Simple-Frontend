@@ -26,4 +26,9 @@ import AppHeader from './components/AppHeader.vue'
   margin: 0 auto;
   padding: 1.5rem 1.25rem;
 }
+@media (max-width: 640px) {
+  .content {
+    padding: 1rem;
+  }
+}
 </style>

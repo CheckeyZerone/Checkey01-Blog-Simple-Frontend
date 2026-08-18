@@ -38,4 +38,12 @@
 .nav-link:hover {
   color: #2563eb;
 }
+@media (max-width: 640px) {
+  .site-header {
+    padding: 0 1rem;
+  }
+  .logo {
+    font-size: 1rem;
+  }
+}
 </style>

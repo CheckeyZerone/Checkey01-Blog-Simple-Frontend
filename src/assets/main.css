@@ -82,3 +82,16 @@ h3 {
   background: transparent;
   padding: 0;
 }
+
+/* 手机端适配 */
+@media (max-width: 640px) {
+  body {
+    line-height: 1.6;
+  }
+  .content h1 {
+    font-size: 1.5rem;
+  }
+  .content h2 {
+    font-size: 1.25rem;
+  }
+}

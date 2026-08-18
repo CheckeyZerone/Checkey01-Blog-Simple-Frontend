@@ -2,10 +2,10 @@
 project: checkey01-blog-simple-frontend
 branch: main
 remote: https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git
-current_phase: 3
-current_task: T5
+current_phase: 6
+current_task: T7
 status: in_progress
-last_log: 2026-08-17
+last_log: 2026-08-18
 ---
 
 # 学习计划与开发日志
@@ -22,13 +22,13 @@ last_log: 2026-08-17
 | 项目       | checkey01-blog-simple-frontend（本文件所在仓库）                    |
 | 分支       | main                                                                |
 | 远程仓库   | https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git |
-| 当前阶段   | 5（外观打磨）                                                       |
-| 当前任务   | T6                                                                  |
-| 最近完成   | T6.1/T6.2 布局与排版（2026-08-18）                                 |
-| 最后提交   | feat: T6.2 文章排版与全局样式                                      |
+| 当前阶段   | 6（FastAPI 后端）                                                   |
+| 当前任务   | T7                                                                  |
+| 最近完成   | T6 布局与样式（2026-08-18）                                         |
+| 最后提交   | feat: T6.3 响应式适配                                              |
 | 未提交改动 | 无（每次收工必须提交推送）                                          |
 
-**下一步要做**：完成 T6 剩余部分——T6.3 响应式（手机端适配），验收 T6（完成标志：整体像个正常博客）。
+**下一步要做**：开始任务 T7（FastAPI 最小后端）——先在前端加 `src/api/articles.ts` 服务层，再搭建后端接口。
 
 ## 问题记录
 
@@ -149,7 +149,7 @@ last_log: 2026-08-17
 
 **完成标志**：点标签看到对应文章列表。
 
-### T6 布局与样式 🔄（当前任务，预计 4~6 天）
+### T6 布局与样式 ✅（2026-08-18 完成）
 
 **目标**：Header/Footer、卡片与详情排版、手机适配。
 
@@ -157,11 +157,11 @@ last_log: 2026-08-17
 
 - [x] T6.1 布局骨架与备案信息（2026-08-18）
 - [x] T6.2 全局样式与文章排版（2026-08-18）
-- [ ] T6.3 响应式（手机端适配）
+- [x] T6.3 响应式（手机端适配，2026-08-18）
 
 **完成标志**：整体像个正常博客。
 
-### T7 FastAPI 最小后端（预计 3~5 天）
+### T7 FastAPI 最小后端 🔄（当前任务，预计 3~5 天）
 
 **目标**：用 FastAPI 提供文章接口，前端数据来自后端。
 
@@ -292,6 +292,15 @@ last_log: 2026-08-17
 - 遇到的问题：无
 - 遗留事项：备案号占位符；HomeViews 旧注释代码、`HomeViews.vue` 文件名与计划不一致等旧事项
 - 下一步：T6.3 响应式（手机端适配）
+
+### 2026-08-18（第 10 天）— T6 完成
+
+- 任务编号：T6
+- 今天做了什么：T6.3 响应式——main.css / AppHeader / App.vue 增加 `@media (max-width: 640px)` 手机适配，修正 min-height/max-width 笔误，桌面和手机模拟均正常显示，T6 验收通过
+- 学到了什么：媒体查询 `@media`、设备模拟调试（F12 + Ctrl+Shift+M）、移动端间距与字号调整
+- 遇到的问题：无
+- 遗留事项：备案号占位符需上线前替换；HomeViews 旧注释代码、`HomeViews.vue` 文件名与计划不一致等旧事项
+- 下一步：T7 FastAPI 最小后端（先加 src/api/articles.ts 服务层）
 
 ## 报错速查
 
