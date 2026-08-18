@@ -23,6 +23,11 @@ const router = createRouter({
       name: 'tag-post',
       component: () => import('../views/TagPostsView.vue'),
     },
+    {
+      path: '/links',
+      name: 'links',
+      component: () => import('../views/LinksView.vue'),
+    },
   ],
 })
 

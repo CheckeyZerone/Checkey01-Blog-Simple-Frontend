@@ -6,6 +6,7 @@
     <nav class="nav">
       <RouterLink to="/" class="nav-link">首页</RouterLink>
       <RouterLink to="/tags" class="nav-link">标签</RouterLink>
+      <RouterLink to="/links" class="nav-link">友链</RouterLink>
     </nav>
   </header>
 </template>
