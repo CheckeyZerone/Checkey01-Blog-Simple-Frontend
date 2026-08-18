@@ -22,13 +22,13 @@ last_log: 2026-08-17
 | 项目       | checkey01-blog-simple-frontend（本文件所在仓库）                    |
 | 分支       | main                                                                |
 | 远程仓库   | https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git |
-| 当前阶段   | 4（标签筛选）                                                       |
-| 当前任务   | T5                                                                  |
-| 最近完成   | T4 组件拆分与列表优化（2026-08-17）                                 |
-| 最后提交   | fix: 用 yaml 替换 gray-matter 修复浏览器 Buffer 问题                |
+| 当前阶段   | 5（外观打磨）                                                       |
+| 当前任务   | T6                                                                  |
+| 最近完成   | T5 frontmatter 与标签（2026-08-18）                                 |
+| 最后提交   | feat: T5 frontmatter 与标签完成（验收通过）                        |
 | 未提交改动 | 无（每次收工必须提交推送）                                          |
 
-**下一步要做**：继续完成任务 T5——`npm run dev` 验证完成标志（点标签看到对应文章列表），通过后进入 T6 布局与样式。
+**下一步要做**：开始任务 T6（布局与样式）——Header/Footer、卡片与详情排版、手机适配，完成标志：整体像个正常博客。
 
 ## 问题记录
 
@@ -143,13 +143,13 @@ last_log: 2026-08-17
 
 **本任务概念**：组件化、props（父 → 子）、emits（子 → 父）、`defineProps` / `defineEmits`、`sort` + `localeCompare`、flex 布局（`gap`）、CSS `transition`。
 
-### T5 frontmatter 与标签 🔄（当前任务，进行中）
+### T5 frontmatter 与标签 ✅（2026-08-18 完成）
 
 **目标**：文章用 frontmatter 管理元数据（yaml 解析），标签页按标签过滤。
 
 **完成标志**：点标签看到对应文章列表。
 
-### T6 布局与样式（预计 4~6 天）
+### T6 布局与样式 🔄（当前任务，预计 4~6 天）
 
 **目标**：Header/Footer、卡片与详情排版、手机适配。
 
@@ -259,6 +259,15 @@ last_log: 2026-08-17
 - 遇到的问题：`frontmatter.ts` 里 `parse(yamlText)` 报 `string | undefined`（用 `yamlText === undefined` 守卫解决）
 - 遗留事项：T5 完成标志待验证（点标签看到对应文章列表）；HomeViews 注释掉的旧代码、`HomeViews.vue` 文件名与计划不一致等旧事项
 - 下一步：验证 T5 完成标志，完成后推进 T6 布局与样式
+
+### 2026-08-18（第 7 天）— T5 完成（验收通过）
+
+- 任务编号：T5
+- 今天做了什么：验证 T5 完成标志——首页点文章标签能进入对应标签筛选列表，验收通过
+- 学到了什么：T5 全流程串联（frontmatter → 数据加载 → 标签页路由 → 卡片/详情页入口 → 事件冒泡控制）
+- 遇到的问题：无（验收通过）
+- 遗留事项：HomeViews 注释掉的旧代码、`HomeViews.vue` 文件名与计划不一致等旧事项
+- 下一步：T6 布局与样式
 
 ## 报错速查
 
