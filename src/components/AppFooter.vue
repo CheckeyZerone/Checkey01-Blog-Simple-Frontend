@@ -27,20 +27,21 @@
 
 <style scoped>
 .site-footer {
-  border-top: 1px solid #e5e7eb;
-  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border);
+  background: #fff;
+  padding: 1.1rem 1.5rem;
   text-align: center;
-  color: #9ca3af;
-  font-size: 0.875rem;
+  color: var(--text-info);
+  font-size: 0.8rem;
 }
-.site-footer p {
-  margin: 0 0 0.5rem;
+.site-footer .copyright {
+  margin: 0 0 0.35rem;
 }
 .beian {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.9rem;
   flex-wrap: wrap;
 }
 .beian-link {

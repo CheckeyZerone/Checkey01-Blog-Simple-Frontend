@@ -1,24 +1,23 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 import { articles } from '../data/articles'
-import { computed } from 'vue';
-import PostCard from '@/components/PostCard.vue';
+import { computed } from 'vue'
+import PostCard from '@/components/PostCard.vue'
+import HomeHero from '@/components/HomeHero.vue'
 
-const router = useRouter();
+const router = useRouter()
 
 // 按照日期排序
-const sortedArticles = computed(() =>
-[...articles].sort((a, b) => b.date.localeCompare(a.date)),
-)
+const sortedArticles = computed(() => [...articles].sort((a, b) => b.date.localeCompare(a.date)))
 
 function goToPost(slug: string) {
-  router.push(`/post/${slug}`);
+  router.push(`/post/${slug}`)
 }
 </script>
 
 <template>
   <main>
-    <h1>我的博客</h1>
+    <HomeHero />
     <div class="post-list">
       <PostCard
         v-for="article in sortedArticles"
