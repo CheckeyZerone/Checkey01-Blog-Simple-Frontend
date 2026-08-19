@@ -1,10 +1,22 @@
 /* 全局基础样式 */
 :root {
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --border: #e5e7eb;
-  --accent: #2563eb;
+  --main-blue: #2080f0;
+  --deep-blue: #263473;
+  --light-blue: #eaf2ff;
+  --red: #d03050;
+  --pink: #ff8e9b;
+  --yellow: #ffc53d;
+  --white: #ffffff;
+  --text-primary: #333639;
+  --text-secondary: #767c82;
+  --text-info: #9aa3b2;
+  --web-bg-color: #efeff5;
+  --border: #e3e7f0;
   --bg-code: #f6f8fa;
+  --main-color: var(--main-blue);
+  --accent: var(--main-blue);
+  --code-block-bg-color: var(--deep-blue);
+  --tag-bg-color: var(--light-blue);
 }
 
 body {
@@ -18,7 +30,7 @@ body {
     sans-serif;
   color: var(--text-primary);
   line-height: 1.7;
-  background: #fff;
+  background: var(--web-bg-color);
 }
 
 a {

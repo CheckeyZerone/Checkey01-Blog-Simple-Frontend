@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1380 400" width="100%" height="100%">
+  <title>Checkey_01 博客字标 —— 构成主义 / 至上主义</title>
+  <desc>纯文字字标：深蓝 Checkey + 红色斜块内白色 01，配至上主义几何装饰（旋转方块、圆环、对角线），无背景</desc>
+
+  <!-- 至上主义装饰：旋转方块（深蓝）+ 黄色小方块 + 红色圆环 -->
+  <rect x="988" y="46" width="64" height="64" fill="#263473" transform="rotate(45 1020 78)"/>
+  <rect x="806" y="80" width="40" height="40" fill="#FFC53D" transform="rotate(15 826 100)"/>
+
+  <!-- 结构主义对角线（主蓝） -->
+  <line x1="40" y1="330" x2="1360" y2="70" stroke="#2080F0" stroke-width="6" opacity="0.5"/>
+
+  <!-- 主文字：Checkey（深蓝） -->
+  <text x="0" y="288" font-family="Futura, 'Century Gothic', 'Arial Black', Arial, 'Helvetica Neue', 'Noto Sans SC', sans-serif" font-size="220" font-weight="800" fill="#263473">Checkey</text>
+
+  <!-- 01：红色斜块 + 白色文字（构成主义形变，避开 Checkey 的 y） -->
+  <g transform="rotate(-8 1218 225)">
+    <rect x="1093" y="130" width="250" height="210" fill="#D03050"/>
+    <text x="1218" y="268" text-anchor="middle" font-family="Futura, 'Century Gothic', 'Arial Black', Arial, 'Helvetica Neue', 'Noto Sans SC', sans-serif" font-size="122" font-weight="800" fill="#FFFFFF">01</text>
+  </g>
+
+  <!-- 结构主义下划线（主蓝） -->
+  <rect x="2" y="348" width="560" height="12" fill="#2080F0"/>
+
+  <!-- 红色圆环：位于下划线正右方 -->
+  <circle cx="604" cy="354" r="26" fill="none" stroke="#D03050" stroke-width="10"/>
+</svg>
