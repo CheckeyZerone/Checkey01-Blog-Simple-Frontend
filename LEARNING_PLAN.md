@@ -52,6 +52,7 @@ last_log: 2026-08-18
 - 暂不引入 Pinia、单元测试
 - 安装依赖遇到 ERESOLVE 版本冲突时，用 `npm install --legacy-peer-deps`
 - 项目边界：本仓库只做**前端**和**前后端 API 交互层**（服务层 + 接口契约）；后端实现（FastAPI 服务端、数据库等）另行规划，**不写进本仓库**。前端页面只通过 `src/api/articles.ts` 服务层取数据
+- 内容管理渐进迁移：当前路线 A（Markdown + Git）→ 后端基本功能就绪后路线 B（管理后台 + API）。前端统一走 `src/api/` 服务层，数据源切换只改一处开关
 
 ## Codex 操作协议
 
@@ -201,12 +202,16 @@ last_log: 2026-08-18
 
 **涉及**：
 
-- 新建 `src/api/articles.ts`：定义 API 契约（`Article` 等字段结构）与 `getArticles()` / `getArticle(slug)`；当前实现返回本地数据（`src/contents`），后端就绪后只需把实现改为 `fetch('/api/articles')`
-- 页面（首页 / 详情 / 标签）全部改走服务层，不再直接访问本地数据
+- 新建 `src/api/types.ts`：契约类型（`Article` / `ArticleSummary` / `ArticleInput`）
+- 新建 `src/api/source.ts`：数据源接口 `ArticleSource`（读操作 + 写操作占位）
+- 新建 `src/api/local-source.ts`：路线 A 实现（读本地 `src/contents`）
+- 新建 `src/api/remote-source.ts`：路线 B 实现（`fetch('/api/v1/...')`，先写好框架）
+- 新建 `src/api/articles.ts`：对外唯一入口 + 切换开关（默认 `localSource`）
+- 页面（首页 / 详情 / 标签）全部改走服务层并异步化，不再直接访问本地数据
 - 配置 `vite.config.ts` 开发代理 `/api` → `http://localhost:8000`（为对接预留）
 - 把接口契约（端点 + 请求/响应字段）记录清楚，供"另作打算"的后端仓库实现
 
-**完成标志**：页面全部通过服务层取数；切换数据源只需改 `src/api/articles.ts` 一处；接口契约已明确记录。
+**完成标志**：页面全部通过服务层取数；从路线 A 切到路线 B 只需改 `src/api/articles.ts` 的开关一处；接口契约已明确记录。
 
 **本任务概念**：REST API、前后端契约、服务层（数据源切换）、开发代理（跨域）。
 
@@ -226,9 +231,38 @@ last_log: 2026-08-18
 
 **本任务概念**：数据与视图分离、前后端契约（`Article` 字段结构）。
 
+### T9 管理后台前端（补充任务，待做；依赖后端管理 API）
+
+**目标**：提供网页内容管理：登录、文章列表、新建 / 编辑 / 删除。
+
+**涉及**：
+
+- 路由：`/admin/login`、`/admin`（文章管理列表）、`/admin/new`、`/admin/edit/:slug`，与访客页面分开
+- 在 `src/api/remote-source.ts` 补齐写操作：`login()` / `createArticle()` / `updateArticle()` / `deleteArticle()`
+- 登录态：token 存 localStorage，请求带 `Authorization: Bearer <token>`
+- 表单：标题、日期、标签、摘要、正文（Markdown）
+
+**完成标志**：登录后可新建 / 编辑 / 删除文章，访客页面同步更新。
+
+> 前置：后端管理 API（另作打算的仓库）就绪；本任务在 T7 服务层完成后再做。
+
 ### 后续（可选）
 
 评论、登录、后台发文（基于 FastAPI + 数据库）、搜索、暗色模式、部署上线。
+
+## 渐进迁移方案（内容管理 A → B）
+
+**原则**：接口固定、双实现、一个开关。页面只依赖 `src/api/articles.ts`，不直接碰数据源。
+
+| 阶段 | 前端状态 | 内容管理方式 |
+| --- | --- | --- |
+| A（现在） | 服务层走 `localSource`，页面全部走服务层（异步化） | 改 Markdown + Git 提交 |
+| A+（后端基础接口就绪） | 开关切到 `remoteSource`，读接口来自后端；后台页面做登录 + 文章管理 | 后端读写，前端管理页操作 |
+| B（完全迁移） | 删除本地 `src/contents/` 与 `local-source.ts`，只保留 `remoteSource` | 后台为唯一写入口 |
+
+**切换方式**：改 `src/api/articles.ts` 里的 `source`（或环境变量 `VITE_USE_REMOTE`）。
+
+**迁移检查点**：每个阶段完成时运行 `npm run dev`，确认首页 / 详情 / 标签 /（后台）正常后再继续。
 
 ## 开发日志
 
