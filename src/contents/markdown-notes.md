@@ -6,8 +6,6 @@ tags:
 excerpt: 记录 Markdown 的常用语法。
 ---
 
-# Markdown
-
 ## 标题
 
 - 列表
