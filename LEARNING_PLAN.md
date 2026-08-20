@@ -2,18 +2,20 @@
 project: checkey01-blog-simple-frontend
 branch: main
 remote: https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git
-current_phase: 6
-current_task: T7
-status: in_progress
-last_log: 2026-08-19
+current_phase: 7
+current_task: T-D1
+status: next
+last_log: 2026-08-20
 ---
 
 # 学习计划与开发日志
 
-本文件是项目唯一的「状态 + 交接」文档，同时服务两类读者：
+本文件是项目唯一的「状态 + 交接」入口，同时服务两类读者：
 
 - **你自己**：学习路线、每日任务、报错速查
 - **另一台电脑的 Codex**：开工前必须读「当前状态」和「开发日志」，按「Codex 操作协议」继续任务
+
+> 任务详情已拆分到 `tasks/` 目录：本文件只保留状态、索引、决策、日志与速查。开工时只读「当前任务」对应的任务卡，控制上下文消耗。
 
 ## 当前状态
 
@@ -22,13 +24,13 @@ last_log: 2026-08-19
 | 项目       | checkey01-blog-simple-frontend（本文件所在仓库）                    |
 | 分支       | main                                                                |
 | 远程仓库   | https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git |
-| 当前阶段   | 6（FastAPI 后端）                                                   |
-| 当前任务   | T7                                                                  |
-| 最近完成   | T6.5 关于我页面（2026-08-19）                                       |
-| 最后提交   | feat: T6.5 关于我页面                                              |
-| 未提交改动 | 无（每次收工必须提交推送）                                          |
+| 当前阶段   | 7（设计稿落地 · 蔚蓝档案主题，T-D 系列）                            |
+| 当前任务   | T-D1（起点整理，见 [任务索引](#任务索引)）                          |
+| 最近完成   | T6.5 关于我页面 + 首页按钮动效（2026-08-19 ~ 08-20）                |
+| 最后提交   | `5f27bd8 feat: 首页按钮添加悬停与按下动效`                          |
+| 未提交改动 | 导航/文章卡片/路由改动半成品（AppHeader、PostCard、router、HomeViews）+ 相册占位文件（AlbumCard、CardList、albums.ts），交由 T-D1 处理 |
 
-**下一步要做**：开始任务 T7——前端服务层 + 前后端 API 契约（后端实现另作打算，不写在本仓库）。
+**下一步要做**：处理上述未提交改动 → 开始任务 T-D1（起点整理，清理半成品并提交检查点）。任务详情见 `tasks/blue-archive/README.md` 与 `tasks/blue-archive/01-起点整理.md`。
 
 ## 问题记录
 
@@ -53,6 +55,12 @@ last_log: 2026-08-19
 - 安装依赖遇到 ERESOLVE 版本冲突时，用 `npm install --legacy-peer-deps`
 - 项目边界：本仓库只做**前端**和**前后端 API 交互层**（服务层 + 接口契约）；后端实现（FastAPI 服务端、数据库等）另行规划，**不写进本仓库**。前端页面只通过 `src/api/articles.ts` 服务层取数据
 - 内容管理渐进迁移：当前路线 A（Markdown + Git）→ 后端基本功能就绪后路线 B（管理后台 + API）。前端统一走 `src/api/` 服务层，数据源切换只改一处开关
+- **任务管理拆文件**：`LEARNING_PLAN.md` 只做状态/索引/日志/速查；任务卡按文件存放在 `tasks/`（含 `blue-archive/` 子目录），开工只读当前任务卡，避免过度消耗 token
+- **当前优先事项**：T-D 系列（设计稿落地）优先推进；T7/T8/T9 保留在任务索引，按数据解耦原则写好代码后可无缝衔接
+- **每步强制审查**：每个任务完成后按 `tasks/README.md` 通用审查清单验收（type-check / lint / build / 目测 / 死链 / 垃圾清理 / 复用性），发现问题当场修复，不留屎山
+- **数据与页面解耦**：文章、相册、友链、关于我各自独立数据文件 + 类型接口，页面只从统一入口取数；后端就绪后只换数据源实现，页面不动
+- **旧标签页彻底改造**：不做新旧两套页面，标签页直接改造成新的文章列表页；相册图片先用占位符；搜索框先只做 UI，等文章相关功能完成后再实现
+- **相册后置、复用性前置**：相册页 / 图片内容页 / 相册检索最后实现，但 AlbumCard、分页组件、标签筛选条等公共件前期先设计好，相册阶段只是组合复用
 
 ## Codex 操作协议
 
@@ -60,17 +68,19 @@ last_log: 2026-08-19
 
 1. 读取本文件「当前状态」和「开发日志」
 2. 运行 `git status`、`git log --oneline -5`，对照文档确认一致
-3. 检查任务涉及的现有文件是否如文档所述
-4. 一致 → 直接执行当前任务；不一致 → 以实际代码为准，先修正文档，再向用户说明差异
-5. 只做「下一步要做」的任务，不顺手重构、不扩大范围
+3. 读取 `tasks/README.md` 通用审查清单 + 「当前任务」对应的任务卡；没有必要时不读其他任务卡
+4. 检查任务涉及的现有文件是否如文档所述
+5. 一致 → 直接执行当前任务；不一致 → 以实际代码为准，先修正文档，再向用户说明差异
+6. 只做「下一步要做」的任务，不顺手重构、不扩大范围
 
 ### 收工（每个任务完成后）
 
 1. 验证「完成标志」：启动 `npm run dev`，按任务卡的验收步骤检查
-2. 更新文首「当前状态」（阶段、任务、未提交改动）
-3. 在「开发日志」末尾追加条目（格式见下）
-4. 提交并推送：`git add .` → `git commit -m "描述本次改动"` → `git push`
-5. 向用户汇报：完成了什么、下一步是什么
+2. 过 `tasks/README.md` 通用审查清单，发现问题当场修复
+3. 更新文首「当前状态」（阶段、任务、未提交改动）
+4. 在「开发日志」末尾追加条目（格式见下）
+5. 提交（`git add .` → `git commit -m "描述本次改动"`）；是否推送按用户要求
+6. 向用户汇报：完成了什么、下一步是什么
 
 ### 冲突与异常
 
@@ -90,165 +100,39 @@ last_log: 2026-08-19
 4. 对 Codex 说：继续项目，按 LEARNING_PLAN.md 的当前任务往下做
 5. 项目路径以实际 clone 位置为准
 
-## 任务清单
-
-> 任务编号固定，日志和交接时引用编号（如「已完成 T1」「正在做 T2」）。
-
-### T1 环境搭建 ✅（2026-08-14 完成）
-
-- [x] create-vue 创建项目（TS + Router + Linter + Prettier）
-- [x] 安装依赖
-- [x] Git 仓库初始化并推送 GitHub
-
-验证证据：`git log --oneline` 包含 `feat: 初始化项目`；`npm run dev` 能打开页面；GitHub 仓库存在。
-
-### T2 首页文章列表 ✅（2026-08-14 完成）
-
-**目标**：首页用数据渲染文章列表。
-
-**涉及文件**：
-
-- 新建 `src/data/articles.ts`（Article 接口 + 3 篇示例文章）
-- 新建 `src/views/HomeViews.vue`（`v-for` 渲染标题/日期/摘要）
-- 修改 `src/router/index.ts`（添加 `/` → HomeViews）
-- 修改 `src/App.vue`（替换为 `<RouterView />`）
-
-**完成标志**：`npm run dev` 后首页显示「我的博客」+ 3 篇文章；`npm run lint` 不新增错误。
-
-**本任务概念**：`interface`、`v-for`、`{{ }}`、`RouterView`。
-
-### T3 文章详情页 ✅（2026-08-17 完成）
-
-**目标**：点击文章进入详情页，Markdown 渲染 + 代码高亮 + LaTeX 公式。
-
-**涉及**：
-
-- 安装 `markdown-it` + `highlight.js` + `katex` + `markdown-it-texmath` + `dompurify`
-- 新建 `src/utils/markdown.ts`（渲染 + 高亮 + 公式 + 清洗）、`src/views/PostView.vue`、`src/markdown-it-texmath.d.ts`
-- 修改 `src/router/index.ts`（`/post/:slug`）、`src/views/HomeViews.vue`（列表跳转）、`src/data/articles.ts`（测试内容）
-
-**完成标志**：首页 → 详情页 → 正文排版正常、代码高亮、公式渲染；`npm run type-check` / `npm run lint` 无错误。
-
-**本任务概念**：`computed`、`useRoute()`、`v-html`、`RouterLink`、`:key`、scoped 与 `:deep()`、回调函数、markdown-it 插件机制。
-
-### T4 组件拆分与列表优化 ✅（2026-08-17 完成）
-
-**目标**：抽取 `PostCard.vue`（学习 props/emits），按日期倒序，显示阅读时间。
-
-**涉及**：
-
-- 新建 `src/components/PostCard.vue`（props 接收文章、emits 通知父组件、computed 计算阅读时间）
-- 修改 `src/views/HomeViews.vue`（`sortedArticles` 按日期倒序、`<PostCard>` 渲染、`@select` 跳转）
-
-**完成标志**：列表页由卡片组件构成，可复用；首页顺序为 `blog-plan` → `markdown-notes` → `hello-vue`，卡片显示阅读时间；`npm run type-check` / `npm run lint` 无错误。
-
-**本任务概念**：组件化、props（父 → 子）、emits（子 → 父）、`defineProps` / `defineEmits`、`sort` + `localeCompare`、flex 布局（`gap`）、CSS `transition`。
-
-### T5 frontmatter 与标签 ✅（2026-08-18 完成）
-
-**目标**：文章用 frontmatter 管理元数据（yaml 解析），标签页按标签过滤。
-
-**完成标志**：点标签看到对应文章列表。
-
-### T6 布局与样式 ✅（2026-08-18 完成）
-
-**目标**：Header/Footer、卡片与详情排版、手机适配。
-
-进度：
-
-- [x] T6.1 布局骨架与备案信息（2026-08-18）
-- [x] T6.2 全局样式与文章排版（2026-08-18）
-- [x] T6.3 响应式（手机端适配，2026-08-18）
-
-**完成标志**：整体像个正常博客。
-
-### T6.4 友情链接页面 ✅（2026-08-18 完成）
-
-**目标**：新增"友情链接"页面，展示友链信息（站名、链接、简介、可选头像），支持以后互换友链。
-
-**涉及**：
-
-- 新建 `src/views/LinksView.vue`，路由 `/links`，Header 导航加"友链"入口
-- 数据先用简单数组文件（如 `src/data/links.ts`），后续可走服务层（与文章一致）
-- 样式复用现有卡片风格，手机端正常显示
-
-**完成标志**：`/links` 页面展示友链列表，导航可进入，桌面和手机均正常。
-
-**本任务概念**：新页面与路由、列表渲染、数据文件组织。
-
-> 说明：纯前端功能，不依赖后端，可安排在 T7 之后或随时插入。
-
-### T6.5 关于我页面 ✅（2026-08-19 完成）
-
-**目标**：新增"关于我"页面，展示个人简介等内容。
-
-**涉及**：
-
-- 新建 `src/views/AboutView.vue`，路由 `/about`，Header 导航加"关于"入口
-- 内容先用静态文本，后续可改为 Markdown 文件管理
-- 样式与现有页面一致，手机端正常显示
-
-**完成标志**：`/about` 页面正常展示，导航可进入，桌面和手机均正常。
-
-**本任务概念**：新页面与路由、静态内容组织。
-
-> 说明：纯前端功能，不依赖后端，可随时做。
-
-### T7 前端服务层与 API 契约 🔄（当前任务，预计 2~3 天）
-
-**目标**：做好前端的数据服务层和前后端 API 契约，让数据源可以随时从"本地数据"切换为"后端接口"（后端实现另作打算，不写在本仓库）。
-
-**前置条件**：前端先加 `src/api/articles.ts` 服务层——页面只调用 `getArticles()` / `getArticle(slug)`，不直接访问本地数据。
-
-**涉及**：
-
-- 新建 `src/api/types.ts`：契约类型（`Article` / `ArticleSummary` / `ArticleInput`）
-- 新建 `src/api/source.ts`：数据源接口 `ArticleSource`（读操作 + 写操作占位）
-- 新建 `src/api/local-source.ts`：路线 A 实现（读本地 `src/contents`）
-- 新建 `src/api/remote-source.ts`：路线 B 实现（`fetch('/api/v1/...')`，先写好框架）
-- 新建 `src/api/articles.ts`：对外唯一入口 + 切换开关（默认 `localSource`）
-- 页面（首页 / 详情 / 标签）全部改走服务层并异步化，不再直接访问本地数据
-- 配置 `vite.config.ts` 开发代理 `/api` → `http://localhost:8000`（为对接预留）
-- 把接口契约（端点 + 请求/响应字段）记录清楚，供"另作打算"的后端仓库实现
-
-**完成标志**：页面全部通过服务层取数；从路线 A 切到路线 B 只需改 `src/api/articles.ts` 的开关一处；接口契约已明确记录。
-
-**本任务概念**：REST API、前后端契约、服务层（数据源切换）、开发代理（跨域）。
-
-### T8 文章数据迁移（预计 1~2 天）
-
-**目标**：所有文章从前端本地数据迁移到后端 `content/` 目录。
-
-> 注：依赖"另作打算"的后端仓库提供接口后再执行；本仓库只负责前端的切换。
-
-**涉及**：
-
-- 把示例文章转成 `content/*.md`（frontmatter 写 title / date / tags）
-- 删除前端 `src/data/articles.ts` 中的示例数据（保留 `Article` 接口，或移动到共享契约位置）
-- 前端列表、详情、标签全部改走服务层
-
-**完成标志**：前端不再包含任何本地文章数据；增删文章只需修改后端 Markdown 文件。
-
-**本任务概念**：数据与视图分离、前后端契约（`Article` 字段结构）。
-
-### T9 管理后台前端（补充任务，待做；依赖后端管理 API）
-
-**目标**：提供网页内容管理：登录、文章列表、新建 / 编辑 / 删除。
-
-**涉及**：
-
-- 路由：`/admin/login`、`/admin`（文章管理列表）、`/admin/new`、`/admin/edit/:slug`，与访客页面分开
-- 在 `src/api/remote-source.ts` 补齐写操作：`login()` / `createArticle()` / `updateArticle()` / `deleteArticle()`
-- 登录态：token 存 localStorage，请求带 `Authorization: Bearer <token>`
-- 表单：标题、日期、标签、摘要、正文（Markdown）
-
-**完成标志**：登录后可新建 / 编辑 / 删除文章，访客页面同步更新。
-
-> 前置：后端管理 API（另作打算的仓库）就绪；本任务在 T7 服务层完成后再做。
+## 任务索引
+
+> 任务编号固定，日志和交接时引用编号（如「已完成 T1」「正在做 T-D3」）。详细步骤都在对应任务卡里，本文件只放索引与完成状态。
+
+| 编号 | 任务 | 状态 | 任务卡 |
+| --- | --- | --- | --- |
+| T1 | 环境搭建 | ✅ 2026-08-14 | （并入日志） |
+| T2 | 首页文章列表 | ✅ 2026-08-14 | （并入日志） |
+| T3 | 文章详情页 | ✅ 2026-08-17 | （并入日志） |
+| T4 | 组件拆分与列表优化 | ✅ 2026-08-17 | （并入日志） |
+| T5 | frontmatter 与标签 | ✅ 2026-08-18 | （并入日志） |
+| T6 | 布局与样式（6.1~6.3） | ✅ 2026-08-18 | （并入日志） |
+| T6.4 | 友情链接页面 | ✅ 2026-08-18 | （并入日志） |
+| T6.5 | 关于我页面 | ✅ 2026-08-19 | （并入日志） |
+| T-D1 | 起点整理 | 🔄 下一步 | [01-起点整理.md](tasks/blue-archive/01-起点整理.md) |
+| T-D2 | 全局设计系统 | 待做 | [02-全局设计系统.md](tasks/blue-archive/02-全局设计系统.md) |
+| T-D3 | 文章列表页（替换旧标签页） | 待做（优先） | [03-文章列表页.md](tasks/blue-archive/03-文章列表页.md) |
+| T-D4 | 首页改造 | 待做 | [04-首页改造.md](tasks/blue-archive/04-首页改造.md) |
+| T-D5 | 文章内容页 | 待做（优先） | [05-文章内容页.md](tasks/blue-archive/05-文章内容页.md) |
+| T-D6 | 友链页改造 | 待做 | [06-友链页改造.md](tasks/blue-archive/06-友链页改造.md) |
+| T-D7 | 搜索功能 | 待做（文章相关完成后） | [07-搜索功能.md](tasks/blue-archive/07-搜索功能.md) |
+| T-D8 | 相册数据与相册页 | 待做（后置） | [08-相册数据与相册页.md](tasks/blue-archive/08-相册数据与相册页.md) |
+| T-D9 | 图片内容页 | 待做（后置） | [09-图片内容页.md](tasks/blue-archive/09-图片内容页.md) |
+| T-D10 | 收尾审查与文档 | 待做 | [10-收尾审查与文档.md](tasks/blue-archive/10-收尾审查与文档.md) |
+| T7 | 前端服务层与 API 契约 | 待做（T-D 系列后或穿插） | [T7-前端服务层与API契约.md](tasks/T7-前端服务层与API契约.md) |
+| T8 | 文章数据迁移 | 待做（依赖后端接口） | [T8-文章数据迁移.md](tasks/T8-文章数据迁移.md) |
+| T9 | 管理后台前端 | 待做（依赖后端管理 API） | [T9-管理后台前端.md](tasks/T9-管理后台前端.md) |
+
+**T-D 系列总说明**：设计稿在 `checkey01-blog-web-design` 文件夹（本仓库外）；四点总原则（数据解耦 / 每步审查 / 旧标签页彻底改造 / 相册后置复用性前置）、任务顺序、待定决策，见 `tasks/blue-archive/README.md`。
 
 ### 后续（可选）
 
-评论、登录、后台发文（基于 FastAPI + 数据库）、搜索、暗色模式、部署上线。
+评论、登录、后台发文（基于 FastAPI + 数据库）、搜索（已排入 T-D7）、暗色模式、部署上线。
 
 ## 渐进迁移方案（内容管理 A → B）
 
@@ -319,9 +203,9 @@ last_log: 2026-08-19
 - 任务编号：T5
 - 今天做了什么：创建 3 个 Markdown 文章文件（`src/contents/`，带 frontmatter）；`articles.ts` 改为从 Markdown 读取；新增标签页 `TagsView` / `TagPostsView`；路由、卡片、详情页接上标签；修好标签筛选遍历对象和 `.tags` 样式笔误
 - 学到了什么：`import.meta.glob` 批量导入、gray-matter 解析 frontmatter、动态路由参数 `useRoute`、`@click.stop` 阻止事件冒泡、`flex-wrap` + `gap` 排版
-- 遇到的问题：gray-matter 在浏览器运行时缺 Buffer（`ReferenceError: Buffer is not defined`）；用 buffer polyfill 解决运行时后，又出现 TypeScript 类型报错（问题 #1，见「未解决问题」）
+- 遇到的问题：gray-matter 在浏览器运行时缺 Buffer（`ReferenceError: Buffer is not defined`）；用 buffer polyfill 解决运行时后，又出现 TypeScript 类型报错（问题 #1，见「问题记录」）
 - 遗留事项：问题 #1 未解决；HomeViews 里注释掉的旧 `<ul>` 代码可后续删除；`HomeViews.vue` 文件名与计划不一致
-- 下一步：解决「未解决问题」#1，然后验证 T5 完成标志（点标签看到对应文章列表）
+- 下一步：解决「问题记录」#1，然后验证 T5 完成标志（点标签看到对应文章列表）
 
 ### 2026-08-18（第 6 天）— 问题 #1 解决，T5 继续
 
@@ -385,6 +269,15 @@ last_log: 2026-08-19
 - 遇到的问题：无
 - 遗留事项：关于页内容后续可改为 Markdown 管理
 - 下一步：T7 前端服务层与 API 契约
+
+### 2026-08-20（第 13 天）— 设计稿落地规划 + 任务管理拆文件
+
+- 任务编号：T-D 系列
+- 今天做了什么：把设计稿（蔚蓝档案主题）落地规划写入 `tasks/blue-archive/`（README + T-D1~T-D10 共 10 张任务卡）；任务详情从 `LEARNING_PLAN.md` 拆出到 `tasks/` 目录（README + T7/T8/T9 卡片），主文档改为状态 + 索引 + 日志 + 速查；记录用户四条总原则（数据解耦 / 每步审查 / 旧标签页彻底改造 / 相册后置复用性前置）
+- 学到了什么：用「拆分文件」管理任务控制上下文消耗；主文档只保留唯一状态
+- 遇到的问题：apply_patch 一次调用不支持同文件先删后建，需分两次执行
+- 遗留事项：工作区仍有未提交半成品（导航/文章卡片/路由 + 相册空壳），将由 T-D1 处理
+- 下一步：T-D1 起点整理（处理未提交半成品，提交检查点）
 
 ## 报错速查
 
