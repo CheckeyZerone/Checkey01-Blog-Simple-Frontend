@@ -1,4 +1,9 @@
 /* 全局基础样式 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 :root {
   --main-blue: #2080f0;
   --deep-blue: #263473;
@@ -17,6 +22,13 @@
   --accent: var(--main-blue);
   --code-block-bg-color: var(--deep-blue);
   --tag-bg-color: var(--light-blue);
+  --radius-sm: 8px;
+  --radius-card: 16px;
+  --card-bg: #ffffff;
+  --shadow-card: 0 6px 24px rgb(32 128 240 / 0.10);
+  --shadow-card-hover: 0 12px 30px rgb(32 128 240 / 0.18);
+  --tag-border: #bfd9fb;
+  --btn-radius: 999px;
 }
 
 body {
@@ -105,5 +117,144 @@ h3 {
   }
   .content h2 {
     font-size: 1.25rem;
+  }
+}
+
+/* ---- 卡片（文章 / 相册 / 友链卡共用）---- */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+/* ---- 按钮 ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: var(--btn-radius);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--main-blue);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgb(32 128 240 / 0.35);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* 幽灵按钮：白底蓝字 */
+.btn--ghost {
+  background: #fff;
+  color: var(--main-blue);
+  border-color: var(--main-blue);
+}
+
+.btn--ghost:hover {
+  box-shadow: 0 10px 20px rgb(32 128 240 / 0.18);
+}
+
+/* ---- 标签胶囊（文章标签等） ---- */
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.7rem;
+  border: 1px solid var(--tag-border);
+  border-radius: var(--btn-radius);
+  background: var(--light-blue);
+  color: var(--main-blue);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---- 分页（供 Pagination 组件使用） ---- */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 1.5rem 0;
+}
+
+.pagination__btn,
+.pagination__page {
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--btn-radius);
+  background: #fff;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.pagination__page--active {
+  background: var(--main-blue);
+  border-color: var(--main-blue);
+  color: #fff;
+  font-weight: 700;
+}
+
+.pagination__ellipsis {
+  color: var(--text-info);
+  padding: 0 0.25rem;
+}
+
+.pagination__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination button:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgb(32 128 240 / 0.18);
+}
+
+/* ---- 动效降级：遵循系统「减弱动态效果」 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .btn,
+  .pagination__btn,
+  .pagination__page {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:active,
+  .btn:hover,
+  .btn:active,
+  .pagination button:hover {
+    transform: none;
   }
 }
