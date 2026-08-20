@@ -11,7 +11,7 @@ const router = useRouter()
 const sortedArticles = computed(() => [...articles].sort((a, b) => b.date.localeCompare(a.date)))
 
 function goToPost(slug: string) {
-  router.push(`/post/${slug}`)
+  router.push(`/posts/${slug}`)
 }
 </script>
 
@@ -26,16 +26,6 @@ function goToPost(slug: string) {
         @select="goToPost"
       />
     </div>
-
-    <!-- <ul>
-      <li v-for="article in articles" :key="article.slug">
-        <RouterLink :to="`/post/${article.slug}`">
-          <h2>{{ article.title }}</h2>
-        </RouterLink>
-        <p>{{ article.date }}</p>
-        <p>{{ article.excerpt }}</p>
-      </li>
-    </ul> -->
   </main>
 </template>
 

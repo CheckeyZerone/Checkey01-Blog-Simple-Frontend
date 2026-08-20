@@ -8,7 +8,7 @@
       </RouterLink>
       <nav class="nav">
         <RouterLink to="/" class="nav-link" exact-active-class="active">首页</RouterLink>
-        <RouterLink to="/tags" class="nav-link" active-class="active">标签</RouterLink>
+        <RouterLink to="/posts" class="nav-link" active-class="active">文章</RouterLink>
         <RouterLink to="/links" class="nav-link" active-class="active">友链</RouterLink>
         <RouterLink to="/about" class="nav-link" active-class="active">关于我</RouterLink>
       </nav>
