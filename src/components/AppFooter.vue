@@ -1,25 +1,33 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { siteConfig } from '@/config/site.local';
+
+// 备案号允许留空，留空时不显示备案内容
+const icpNumber = siteConfig.icpNumber.trim()
+const policeNumber = siteConfig.policeNumber.trim()
+</script>
 
 <template>
   <footer class="site-footer">
     <p class="copyright">© 2026 Checkey01的小站</p>
     <div class="beian">
       <a
+        v-if="icpNumber"
         href="https://beian.miit.gov.cn/"
         target="_blank"
         rel="noopener noreferrer"
         class="beian-link"
       >
-        京ICP备XXXXXXXX号
+        {{ icpNumber }}
       </a>
       <a
+        v-if="policeNumber"
         href="https://beian.mps.gov.cn/"
         target="_blank"
         rel="noopener noreferrer"
         class="beian-link"
       >
         <img src="/beian.png" alt="公安备案图标" class="beian-icon" />
-        京公网安备XXXXXXXXXXXX号
+        {{ policeNumber }}
       </a>
     </div>
   </footer>

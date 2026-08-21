@@ -27,7 +27,7 @@ last_log: 2026-08-22
 | 当前阶段   | 7（设计稿落地 · 蔚蓝档案主题，T-D 系列）                            |
 | 当前任务   | T-D4（首页改造，见 [任务索引](#任务索引)）                          |
 | 最近完成   | T-D3 文章列表页（2026-08-22）                                       |
-| 最后提交   | 本次 T-D3 提交（`feat: T-D3 文章列表页...`，见提交历史）          |
+| 最后提交   | 备案号配置化（`feat: 备案号写入本地配置...`，见提交历史）          |
 | 未提交改动 | 无                                                                  |
 
 **下一步要做**：开始任务 T-D4（首页改造：Hero 对齐设计稿 + 最新文章三列网格 + 置顶星标）。任务详情见 `tasks/blue-archive/README.md` 与 `tasks/blue-archive/04-首页改造.md`。
@@ -304,6 +304,14 @@ last_log: 2026-08-22
 - 学到了什么：路由 query（`route.query.tag`）、组件 props/emits、分页 slice、`Number(boolean)` 置顶优先排序；置顶=手动字段而非排序位置；设计稿为准核对 HTML 类名（`ba-star` 是黄色图标而非文字胶囊）
 - 遇到的问题：`Frontmatter` 类型缺 `featured` 导致 TS 报错（补 `featured?: boolean`）；组件单字名 `Pagination` 触发 ESLint 多单词规则（改名 `PaginationBar`）；`Math.ceil(list.length) / PAGE_SIZE` 括号位置错误导致翻页页数错误；`path: 'posts'` 少了前导斜杠会拼成 `/posts/posts`
 - 遗留事项：首页仍为纵向列表（T-D4 改三列网格，且首页置顶卡不应横跨整行，需把「显示星标」与「通栏」拆开）；`PostView` 标签行间距待 T-D5 细调；`PostsView` 的 `class="container"` 无对应样式可清理
+- 下一步：T-D4 首页改造
+
+### 2026-08-22（第 15 天）— 备案号配置化
+
+- 任务编号：T-D4 前置小改动（未纳入任务索引）
+- 今天做了什么：ICP 与公安备案号改为配置文件管理——新增 `src/config/site.example.ts`（模板，随仓库提交）与 `src/config/site.local.ts`（真实备案号，被 git 忽略）；`.gitignore` 增加 `*.local.ts`；`AppFooter.vue` 从 `site.local` 读取备案号，任一留空时用 `v-if` 隐藏对应链接
+- 学到了什么：隐私/环境相关数据用被忽略的本地配置文件保存；example 文件作为模板提交，供新环境复制
+- 遇到的问题：`site.local.ts` 被忽略后，新环境缺失会导致编译报错，需先复制 example 文件
 - 下一步：T-D4 首页改造
 
 ## 报错速查
