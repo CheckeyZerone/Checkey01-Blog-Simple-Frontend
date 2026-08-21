@@ -4,11 +4,18 @@ import { siteConfig } from '@/config/site.local';
 // 备案号允许留空，留空时不显示备案内容
 const icpNumber = siteConfig.icpNumber.trim()
 const policeNumber = siteConfig.policeNumber.trim()
+
+const currentYear = new Date().getFullYear()
+const yearText =
+  currentYear > siteConfig.startYear
+    ? `${siteConfig.startYear} - ${currentYear}`
+    : `${siteConfig.startYear}`
 </script>
 
 <template>
   <footer class="site-footer">
-    <p class="copyright">© 2026 Checkey01的小站</p>
+    <p class="copyright">© {{ yearText }} {{ siteConfig.ownerName }}</p>
+    <p class="powered-by">Powered by Checkey_01 Simple Blog</p>
     <div class="beian">
       <a
         v-if="icpNumber"
@@ -42,7 +49,8 @@ const policeNumber = siteConfig.policeNumber.trim()
   color: var(--text-info);
   font-size: 0.8rem;
 }
-.site-footer .copyright {
+.site-footer .copyright,
+.site-footer .powered-by {
   margin: 0 0 0.35rem;
 }
 .beian {
