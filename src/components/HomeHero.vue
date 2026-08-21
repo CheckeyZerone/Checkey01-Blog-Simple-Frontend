@@ -8,7 +8,7 @@
       我们的幸福将属于千百万人，我们的事业将悄然无声地存在下去，但是它会永远发挥作用，而面对我们的骨灰，高尚的人们将洒下热泪。
     </p>
     <div class="hero-cta">
-      <RouterLink to="/tags" class="btn">浏览文章</RouterLink>
+      <RouterLink to="/posts" class="btn">浏览文章</RouterLink>
       <RouterLink to="/about" class="btn ghost">关于我</RouterLink>
     </div>
   </section>

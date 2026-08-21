@@ -3,9 +3,9 @@ project: checkey01-blog-simple-frontend
 branch: main
 remote: https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git
 current_phase: 7
-current_task: T-D1
+current_task: T-D4
 status: next
-last_log: 2026-08-20
+last_log: 2026-08-22
 ---
 
 # 学习计划与开发日志
@@ -25,12 +25,12 @@ last_log: 2026-08-20
 | 分支       | main                                                                |
 | 远程仓库   | https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git |
 | 当前阶段   | 7（设计稿落地 · 蔚蓝档案主题，T-D 系列）                            |
-| 当前任务   | T-D2（全局设计系统，见 [任务索引](#任务索引)）                      |
-| 最近完成   | T-D1 起点整理（2026-08-20）                                         |
-| 最后提交   | 本次 T-D1 提交（`chore: T-D1 起点整理`，见提交历史）              |
+| 当前任务   | T-D4（首页改造，见 [任务索引](#任务索引)）                          |
+| 最近完成   | T-D3 文章列表页（2026-08-22）                                       |
+| 最后提交   | 本次 T-D3 提交（`feat: T-D3 文章列表页...`，见提交历史）          |
 | 未提交改动 | 无                                                                  |
 
-**下一步要做**：开始任务 T-D2（全局设计系统：色板、圆角、按钮/标签/分页公共样式）。任务详情见 `tasks/blue-archive/README.md` 与 `tasks/blue-archive/02-全局设计系统.md`。
+**下一步要做**：开始任务 T-D4（首页改造：Hero 对齐设计稿 + 最新文章三列网格 + 置顶星标）。任务详情见 `tasks/blue-archive/README.md` 与 `tasks/blue-archive/04-首页改造.md`。
 
 ## 问题记录
 
@@ -114,9 +114,9 @@ last_log: 2026-08-20
 | T6 | 布局与样式（6.1~6.3） | ✅ 2026-08-18 | （并入日志） |
 | T6.4 | 友情链接页面 | ✅ 2026-08-18 | （并入日志） |
 | T6.5 | 关于我页面 | ✅ 2026-08-19 | （并入日志） |
-| T-D1 | 起点整理 | 🔄 下一步 | [01-起点整理.md](tasks/blue-archive/01-起点整理.md) |
-| T-D2 | 全局设计系统 | 待做 | [02-全局设计系统.md](tasks/blue-archive/02-全局设计系统.md) |
-| T-D3 | 文章列表页（替换旧标签页） | 待做（优先） | [03-文章列表页.md](tasks/blue-archive/03-文章列表页.md) |
+| T-D1 | 起点整理 | ✅ 2026-08-20 | [01-起点整理.md](tasks/blue-archive/01-起点整理.md) |
+| T-D2 | 全局设计系统 | ✅ 2026-08-21 | [02-全局设计系统.md](tasks/blue-archive/02-全局设计系统.md) |
+| T-D3 | 文章列表页（替换旧标签页） | ✅ 2026-08-22 | [03-文章列表页.md](tasks/blue-archive/03-文章列表页.md) |
 | T-D4 | 首页改造 | 待做 | [04-首页改造.md](tasks/blue-archive/04-首页改造.md) |
 | T-D5 | 文章内容页 | 待做（优先） | [05-文章内容页.md](tasks/blue-archive/05-文章内容页.md) |
 | T-D6 | 友链页改造 | 待做 | [06-友链页改造.md](tasks/blue-archive/06-友链页改造.md) |
@@ -288,6 +288,24 @@ last_log: 2026-08-20
 - 遗留事项：导航「文章」指向的 `/posts` 只有 `/posts/:slug` 详情路由，文章列表页待 T-D3 实现（按计划优先）
 - 下一步：T-D2 全局设计系统
 
+### 2026-08-21（第 14 天）— T-D2 完成
+
+- 任务编号：T-D2
+- 今天做了什么：全局设计系统落地——`src/assets/main.css` 新增设计令牌（`--radius-card` / `--shadow-card` / `--shadow-card-hover` / `--tag-border` / `--btn-radius` 等）与公共类（`.card` / `.btn` / `.tag` / `.pagination`）；卡片 hover 上浮、点击微缩；`prefers-reduced-motion` 动效降级
+- 学到了什么：设计令牌集中管理、公共样式与组件 scoped 样式分工（外壳进全局、组件内只留布局）、CSS 自定义属性覆盖
+- 遇到的问题：组件类与全局类的关系需明确（PostCard 删掉 scoped 外壳样式后必须挂全局 `.card`，否则视觉回归）
+- 遗留事项：首页仍为旧布局，待 T-D4 改造
+- 下一步：T-D3 文章列表页
+
+### 2026-08-22（第 15 天）— T-D3 完成
+
+- 任务编号：T-D3
+- 今天做了什么：新建 `PostsView.vue`（标签筛选 + 置顶大卡 + 双列网格 + 分页 + 空状态）、`TagFilterBar.vue`、`PaginationBar.vue`；`PostCard.vue` 支持 featured（通栏 + 黄色五角星徽标，样式对齐设计稿）；路由注册 `/posts` 与 `/posts/:slug`，`/tags`、`/tags/:tag` 重定向到 `/posts`（带 query）；删除旧 `TagsView` / `TagPostsView`；全站标签链接改为 `/posts?tag=xxx`；`Article` 增加 `featured` 字段支持手动置顶（`src/contents/hello-blog.md` 开启 `featured: true`），首页排序同步置顶优先
+- 学到了什么：路由 query（`route.query.tag`）、组件 props/emits、分页 slice、`Number(boolean)` 置顶优先排序；置顶=手动字段而非排序位置；设计稿为准核对 HTML 类名（`ba-star` 是黄色图标而非文字胶囊）
+- 遇到的问题：`Frontmatter` 类型缺 `featured` 导致 TS 报错（补 `featured?: boolean`）；组件单字名 `Pagination` 触发 ESLint 多单词规则（改名 `PaginationBar`）；`Math.ceil(list.length) / PAGE_SIZE` 括号位置错误导致翻页页数错误；`path: 'posts'` 少了前导斜杠会拼成 `/posts/posts`
+- 遗留事项：首页仍为纵向列表（T-D4 改三列网格，且首页置顶卡不应横跨整行，需把「显示星标」与「通栏」拆开）；`PostView` 标签行间距待 T-D5 细调；`PostsView` 的 `class="container"` 无对应样式可清理
+- 下一步：T-D4 首页改造
+
 ## 报错速查
 
 | 报错                                         | 原因         | 解决                             |
@@ -300,3 +318,6 @@ last_log: 2026-08-20
 | `TS7016 Could not find a declaration file`   | 包无类型声明 | 项目内补 `.d.ts`（如 `src/markdown-it-texmath.d.ts`） |
 | `'MarkdownIt' cannot be used as a value`     | 值/类型导入混淆 | 默认导入构造函数，`import type` 导入实例类型 |
 | `Property 'push' does not exist on type 'RouteLocationNormalizedLoaded'` | 把 `useRoute()` 当 `useRouter()` 用 | `route` 只读当前地址；跳转用 `useRouter()` 的 `router.push()` |
+| `Property 'featured' does not exist on type 'Frontmatter'` | frontmatter 类型没声明新字段 | 在 `src/utils/frontmatter.ts` 的 `Frontmatter` 接口补 `featured?: boolean` |
+| `Component name "Pagination" should always be multi-word` | Vue 组件名须至少两个单词 | 改名如 `PaginationBar.vue`，同步更新引用处 |
+| `Each *.vue file can contain at most one <script> block` | 文件里出现两个 `<script>` | 一个 `.vue` 文件只保留一个 `<script setup>`，检查是否粘贴重复 |

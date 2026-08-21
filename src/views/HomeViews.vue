@@ -8,7 +8,14 @@ import HomeHero from '@/components/HomeHero.vue'
 const router = useRouter()
 
 // 按照日期排序
-const sortedArticles = computed(() => [...articles].sort((a, b) => b.date.localeCompare(a.date)))
+const sortedArticles = computed(() =>
+[...articles].sort(
+  (a, b) =>
+    Number(b.featured) - Number(a.featured) ||
+    b.date.localeCompare(a.date),
+  ),
+)
+
 
 function goToPost(slug: string) {
   router.push(`/posts/${slug}`)
@@ -23,6 +30,7 @@ function goToPost(slug: string) {
         v-for="article in sortedArticles"
         :key="article.slug"
         :article="article"
+        :featured="article.featured"
         @select="goToPost"
       />
     </div>

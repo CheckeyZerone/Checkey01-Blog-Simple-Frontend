@@ -5,6 +5,7 @@ export interface Frontmatter {
   date?: string
   tags?: string[]
   excerpt?: string
+  featured?: boolean
 }
 
 // 把 Markdown 原始文本转成 frontmatter 数据和正文

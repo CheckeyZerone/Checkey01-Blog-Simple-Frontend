@@ -7,6 +7,7 @@ export interface Article {
   tags: string[]
   excerpt: string
   content: string
+  featured: boolean
 }
 
 // 读取`src/contents`下所有 Markdown 文章（构建时打包进项目）
@@ -38,5 +39,6 @@ export const articles: Article[] = Object.entries(mdFiles).map(([path, raw]) => 
     tags: toTags(data.tags),
     excerpt: String(data.excerpt ?? ''),
     content: content.trim(),
+    featured: data.featured === true
   }
 })

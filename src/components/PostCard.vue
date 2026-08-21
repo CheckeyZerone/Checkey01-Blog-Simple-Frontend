@@ -4,6 +4,7 @@ import type { Article } from '../data/articles'
 
 const props = defineProps<{
   article: Article
+  featured?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -23,7 +24,11 @@ function handleClick() {
 </script>
 
 <template>
-  <article class="post-card" @click="handleClick">
+  <article
+    class="card post-card"
+    :class="{'post-card--featured': featured}"
+    @click="handleClick"
+  >
     <p class="meta">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -46,13 +51,30 @@ function handleClick() {
       </svg>
       {{ article.date }} · 阅读约 {{ readingTime }} 分钟
     </p>
-    <h3>{{ article.title }}</h3>
+    <h3>
+      {{ article.title }}
+      <span v-if="featured" class="badge-star" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      </span>
+    </h3>
     <p class="excerpt">{{ article.excerpt }}</p>
     <p class="tags">
       <RouterLink
         v-for="tag in article.tags"
         :key="tag"
-        :to="`/tags/${tag}`"
+        :to="`/posts?tag=${tag}`"
         class="tag"
         @click.stop
       >
@@ -64,31 +86,17 @@ function handleClick() {
 
 <style scoped>
 .post-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 16px;
   padding: 1.15rem 1.2rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-
-  transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease,
-    border-color 0.22s ease;
-  will-change: transform;
 }
-.post-card-featured {
+.post-card--featured {
   grid-column: 1 / -1;
 }
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 28px rgb(32 128 240 / 0.14);
-  border-color: var(--border);
-}
-.post-card:active {
-  transform: translateY(-1px) scale(0.98);
-  box-shadow: 0 6px 14px rgb(32 128 240 / 0.1);
+
+.post-card--featured h3 {
+  font-size: 1.25rem;
 }
 .meta {
   color: var(--text-info);
@@ -102,13 +110,14 @@ function handleClick() {
   margin: 0 0 0.4rem;
   font-size: 1.05rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 0.35rem;
 }
-.post-card-featured h3 {
-  font-size: 1.25rem;
+.post-card h3 .badge-star {
+  color: var(--yellow);
+  display: inline-flex;
 }
 .excerpt {
   margin: 0 0 0.8rem;
@@ -119,21 +128,9 @@ function handleClick() {
 }
 .tags {
   margin: 0;
-  box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
 }
-.tag {
-  font-size: 0.75rem;
-  color: var(--main-blue);
-  background: var(--light-blue);
-  border: 1px solid #bfd9fb;
-  border-radius: 999px;
-  padding: 0.12rem 0.6rem;
-  text-decoration: none;
-}
-.tag:hover {
-  background: #dbeafe;
-}
+
 </style>

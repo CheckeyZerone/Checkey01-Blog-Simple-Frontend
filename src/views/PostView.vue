@@ -24,7 +24,7 @@ const html = computed(() => {
         <h1>{{ article.title }}</h1>
         <p class="meta">{{ article.date }}</p>
         <p class="tags">
-          <RouterLink v-for="tag in article.tags" :key="tag" :to="`/tags/${tag}`" class="tag">
+          <RouterLink v-for="tag in article.tags" :key="tag" :to="`/posts?tag=${tag}`" class="tag">
             {{ tag }}
           </RouterLink>
         </p>
@@ -45,23 +45,5 @@ const html = computed(() => {
   padding: 1rem;
   overflow-x: auto;
   border-radius: 6px;
-}
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  margin: 0 0 1rem;
-}
-.tag {
-  font-size: 0.75rem;
-  color: #2563eb;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  border-radius: 999px;
-  padding: 0.125rem 0.625rem;
-  text-decoration: none;
-}
-.tag:hover {
-  background: #dbeafe;
 }
 </style>

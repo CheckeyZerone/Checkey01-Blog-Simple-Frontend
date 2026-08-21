@@ -5,6 +5,7 @@ tags:
   - vue
   - 随笔
 excerpt: 欢迎来到我的博客，这是第一篇文章。
+featured: true
 ---
 
 欢迎来到我的博客网站！

@@ -9,19 +9,25 @@ const router = createRouter({
       component: () => import('../views/HomeViews.vue'),
     },
     {
+      path: '/posts',
+      name: 'posts',
+      component: () => import('../views/PostsView.vue'),
+    },
+    {
       path: '/posts/:slug',
       name: 'post',
-      component: () => import('../views/PostView.vue'),
+      component: () => import('../views/PostView.vue')
     },
     {
       path: '/tags',
-      name: 'tags',
-      component: () => import('../views/TagsView.vue'),
+      redirect: '/posts',
     },
     {
       path: '/tags/:tag',
-      name: 'tag-post',
-      component: () => import('../views/TagPostsView.vue'),
+      redirect: (to) => ({
+        path: '/posts',
+        query: { tag: to.params.tag }
+      })
     },
     {
       path: '/links',
