@@ -5,7 +5,7 @@ remote: https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git
 current_phase: 7
 current_task: T-D5
 status: next
-last_log: 2026-08-22
+last_log: 2026-08-23
 ---
 
 # 学习计划与开发日志
@@ -27,7 +27,7 @@ last_log: 2026-08-22
 | 当前阶段   | 7（设计稿落地 · 蔚蓝档案主题，T-D 系列）                            |
 | 当前任务   | T-D5（文章内容页，见 [任务索引](#任务索引)）                        |
 | 最近完成   | T-D4 首页改造（2026-08-22）                                         |
-| 最后提交   | 首页改造（`feat(home): 首页改造...`，见提交历史）                  |
+| 最后提交   | favicon 替换（`chore(favicon): ...`，见提交历史）                 |
 | 未提交改动 | 无                                                                  |
 
 **下一步要做**：开始任务 T-D5（文章内容页：白卡片、返回、上一篇/下一篇）。任务详情见 `tasks/blue-archive/README.md` 与 `tasks/blue-archive/05-文章内容页.md`。
@@ -321,6 +321,15 @@ last_log: 2026-08-22
 - 学到了什么：最新文章用排序后 `slice(0, 3)` 取前三条；三档响应式网格用 `repeat(3, minmax(0, 1fr))` → 2 列 → 1 列；公共组件先在首页消费，可提前验证复用性
 - 遇到的问题：无
 - 遗留事项：相册区「进入相册 →」仍是占位链接，待 T-D8 相册页完成后接入；首页置顶卡只显示星标、不再强制横跨整行
+- 下一步：T-D5 文章内容页
+
+### 2026-08-23 — favicon 替换（T-D4 收尾小改动）
+
+- 任务编号：T-D4 收尾（未纳入任务索引）
+- 今天做了什么：将 `public/favicon.ico` 替换为设计稿的 `blog-logo-icon.ico`（V1 方形图标，含 64/48/32/16 四档），`index.html` 的 `/favicon.ico` 引用保持不变；`npm run build` 通过
+- 学到了什么：设计稿区分「字标版」与「icon 版」，浏览器标签页 favicon 使用 1:1 方形 icon 版
+- 遇到的问题：无
+- 遗留事项：无
 - 下一步：T-D5 文章内容页
 
 ## 报错速查
