@@ -7,7 +7,7 @@ export interface TagCount {
 
 defineProps<{
   tags: TagCount[]
-  activeTag: string  // ''表示全部文章
+  activeTag: string // ''表示全部文章
 }>()
 
 const emit = defineEmits<{
@@ -20,20 +20,20 @@ const emit = defineEmits<{
     <button
       type="button"
       class="tag-filter__item"
-      :class="{'tag-filter__item--active': activeTag === ''}"
+      :class="{ 'tag-filter__item--active': activeTag === '' }"
       @click="emit('change', '')"
     >
-      全部({{ tags.reduce((sum, t) => sum + t.count, 0) }})
+      全部 {{ tags.reduce((sum, t) => sum + t.count, 0) }}
     </button>
     <button
       v-for="tag in tags"
       :key="tag.name"
       type="button"
       class="tag-filter__item"
-      :class="{'tag-filter__item--active': activeTag === tag.name}"
+      :class="{ 'tag-filter__item--active': activeTag === tag.name }"
       @click="emit('change', tag.name)"
     >
-      {{ tag.name }}({{ tag.count }})
+      {{ tag.name }} {{ tag.count }}
     </button>
   </div>
 </template>
@@ -54,7 +54,9 @@ const emit = defineEmits<{
   font-size: 0.85rem;
   padding: 0.3rem 0.85rem;
   cursor: pointer;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
 }
 .tag-filter__item:hover {
   transform: translateY(-2px);

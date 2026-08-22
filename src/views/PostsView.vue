@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import PaginationBar from '@/components/PaginationBar.vue';
-import PostCard from '@/components/PostCard.vue';
-import TagFilterBar from '@/components/TagFilterBar.vue';
-import type { TagCount } from '@/components/TagFilterBar.vue';
-import { articles } from '@/data/articles';
-import { computed, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import PaginationBar from '@/components/PaginationBar.vue'
+import PostCard from '@/components/PostCard.vue'
+import TagFilterBar from '@/components/TagFilterBar.vue'
+import type { TagCount } from '@/components/TagFilterBar.vue'
+import { articles } from '@/data/articles'
+import { computed, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
@@ -27,7 +27,7 @@ const tags = computed<TagCount[]>(() => {
     }
   }
   return [...counts.entries()]
-    .map(([name, count]) => ({name, count}))
+    .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count)
 })
 
@@ -36,15 +36,12 @@ const filteredArticles = computed(() => {
   const list = activeTag.value
     ? articles.filter((article) => article.tags.includes(activeTag.value))
     : [...articles]
-    return list.sort((a, b) =>
-    Number(b.featured) - Number(a.featured) ||
-    b.date.localeCompare(a.date)
+  return list.sort(
+    (a, b) => Number(b.featured) - Number(a.featured) || b.date.localeCompare(a.date),
   )
 })
 
-const totalPages = computed(() =>
-  Math.max(1, Math.ceil(filteredArticles.value.length / PAGE_SIZE)),
-)
+const totalPages = computed(() => Math.max(1, Math.ceil(filteredArticles.value.length / PAGE_SIZE)))
 
 // 当前页码：筛选项变化时回到第一页
 const currentPage = ref(1)
@@ -60,7 +57,7 @@ const pageArticles = computed(() => {
 
 // 点筛选条：该 URL 的 query，由 activeTag 响应式驱动重新过滤
 function changeTag(tag: string) {
-  router.push({ path: '/posts', query: tag ? {tag} : {} })
+  router.push({ path: '/posts', query: tag ? { tag } : {} })
 }
 
 function goToPost(slug: string) {
@@ -72,7 +69,7 @@ function goToPost(slug: string) {
   <main class="container">
     <h1 class="page-title">文章</h1>
 
-    <TagFilterBar :tags="tags" :active-tag="activeTag" @change="changeTag"/>
+    <TagFilterBar :tags="tags" :active-tag="activeTag" @change="changeTag" />
 
     <div v-if="pageArticles.length" class="post-grid">
       <PostCard
@@ -80,6 +77,7 @@ function goToPost(slug: string) {
         :key="article.slug"
         :article="article"
         :featured="article.featured && currentPage === 1 && index === 0"
+        :wide="article.featured && currentPage === 1 && index === 0"
         @select="goToPost"
       />
     </div>

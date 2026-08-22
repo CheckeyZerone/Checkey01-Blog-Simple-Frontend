@@ -5,6 +5,7 @@ import type { Article } from '../data/articles'
 const props = defineProps<{
   article: Article
   featured?: boolean
+  wide?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -26,7 +27,7 @@ function handleClick() {
 <template>
   <article
     class="card post-card"
-    :class="{'post-card--featured': featured}"
+    :class="{ 'post-card--featured': featured, 'post-card--wide': wide }"
     @click="handleClick"
   >
     <p class="meta">
@@ -65,7 +66,9 @@ function handleClick() {
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          ></polygon>
         </svg>
       </span>
     </h3>
@@ -91,11 +94,11 @@ function handleClick() {
   display: flex;
   flex-direction: column;
 }
-.post-card--featured {
+.post-card--wide {
   grid-column: 1 / -1;
 }
 
-.post-card--featured h3 {
+.post-card--wide h3 {
   font-size: 1.25rem;
 }
 .meta {
@@ -132,5 +135,4 @@ function handleClick() {
   flex-wrap: wrap;
   gap: 0.4rem;
 }
-
 </style>

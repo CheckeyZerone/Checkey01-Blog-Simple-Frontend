@@ -7,7 +7,7 @@ import { friendLinks } from '@/data/links'
     <h1>友情链接</h1>
     <p class="intro">欢迎交换友链</p>
     <ul class="link-list">
-      <li v-for="friendLink in friendLinks" :key="friendLink.url" class="link-card">
+      <li v-for="(friendLink, index) in friendLinks" :key="index" class="link-card">
         <a :href="friendLink.url" target="_blank" rel="noopener noreferrer">
           <h2>{{ friendLink.name }}</h2>
           <p>{{ friendLink.description }}</p>

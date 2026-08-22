@@ -9,7 +9,7 @@
     </p>
     <div class="hero-cta">
       <RouterLink to="/posts" class="btn">浏览文章</RouterLink>
-      <RouterLink to="/about" class="btn ghost">关于我</RouterLink>
+      <RouterLink to="/about" class="btn btn--ghost">关于我</RouterLink>
     </div>
   </section>
 </template>
@@ -19,7 +19,7 @@
   position: relative;
   border-radius: 20px;
   padding: 2.75rem 2.5rem;
-  background: linear-gradient(135deg, var(--light-blue) 0%, #fff6e5 100%);
+  background: linear-gradient(135deg, var(--light-blue) 0%, #f7fbff 58%, #fff6e5 100%);
   border: 1px solid #dbe7fb;
   overflow: hidden;
   margin-bottom: 2.25rem;
@@ -69,44 +69,5 @@
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: var(--main-blue);
-  color: #ffffff;
-  border: 0;
-  border-radius: 999px;
-  padding: 0.6rem 1.3rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  font-family: inherit;
-  text-decoration: none;
-
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    background-color 0.18s ease,
-    color 0.18s ease,
-    border-color 0.18s ease;
-  will-change: transform;
-}
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgb(32 128 240 / 0.28);
-}
-.btn:active {
-  transform: translateY(0) scale(0.97);
-  box-shadow: 0 4px 10px rgb(32 128 240 / 0.2);
-}
-.btn.ghost {
-  background: #fff;
-  color: var(--main-blue);
-  border: 1px solid #bfd9fb;
-}
-.btn.ghost:hover {
-  border-color: var(--main-blue);
-  box-shadow: 0 4px 12px rgb(32 128 240 / 0.14);
 }
 </style>
