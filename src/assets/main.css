@@ -28,6 +28,10 @@
   --shadow-card: 0 6px 24px rgb(32 128 240 / 0.10);
   --shadow-card-hover: 0 12px 30px rgb(32 128 240 / 0.18);
   --tag-border: #bfd9fb;
+  --tag-hover-bg: #dbeafe;
+  --tag-active-bg: #cfe6ff;
+  --tag-hover-shadow: 0 4px 10px rgb(32 128 240 / 0.16);
+  --tag-active-shadow: 0 2px 6px rgb(32 128 240 / 0.14);
   --btn-radius: 999px;
 }
 
@@ -188,6 +192,26 @@ h3 {
   font-size: 0.8rem;
   font-weight: 600;
   text-decoration: none;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.tag:hover {
+  transform: translateY(-1px);
+  background: var(--tag-hover-bg);
+  border-color: var(--main-blue);
+  color: var(--main-blue);
+  box-shadow: var(--tag-hover-shadow);
+}
+
+.tag:active {
+  transform: translateY(0) scale(0.95);
+  background: var(--tag-active-bg);
+  box-shadow: var(--tag-active-shadow);
 }
 
 /* ---- 分页（供 Pagination 组件使用） ---- */
