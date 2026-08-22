@@ -27,7 +27,7 @@ last_log: 2026-08-23
 | 当前阶段   | 7（设计稿落地 · 蔚蓝档案主题，T-D 系列）                            |
 | 当前任务   | T-D5（文章内容页，见 [任务索引](#任务索引)）                        |
 | 最近完成   | T-D4 首页改造（2026-08-22）                                         |
-| 最后提交   | favicon 替换（`chore(favicon): ...`，见提交历史）                 |
+| 最后提交   | v0.0.2-alpha 打包（`chore(release): v0.0.2-alpha`，见提交历史）    |
 | 未提交改动 | 无                                                                  |
 
 **下一步要做**：开始任务 T-D5（文章内容页：白卡片、返回、上一篇/下一篇）。任务详情见 `tasks/blue-archive/README.md` 与 `tasks/blue-archive/05-文章内容页.md`。
@@ -328,6 +328,15 @@ last_log: 2026-08-23
 - 任务编号：T-D4 收尾（未纳入任务索引）
 - 今天做了什么：将 `public/favicon.ico` 替换为设计稿的 `blog-logo-icon.ico`（V1 方形图标，含 64/48/32/16 四档），`index.html` 的 `/favicon.ico` 引用保持不变；`npm run build` 通过
 - 学到了什么：设计稿区分「字标版」与「icon 版」，浏览器标签页 favicon 使用 1:1 方形 icon 版
+- 遇到的问题：无
+- 遗留事项：无
+- 下一步：T-D5 文章内容页
+
+### 2026-08-23 — v0.0.2-alpha 发布打包
+
+- 任务编号：打包发布协议（未纳入任务索引）
+- 今天做了什么：经用户确认版本号后更新 `package.json` 为 `0.0.2-alpha`，运行 `npm run release` 产出 `release/0.0.2-alpha/`；`npm run type-check` / `lint` / `build` 全部通过；`vite preview` 验证首页、`/posts`、`/about`、`/links` 均正常访问，静态资源无 404；产物已包含真实 ICP 备案号，无占位符残留
+- 学到了什么：发布包统一走 `npm run release`，`release/<version>/` 不入库，版本号只以 `package.json` 为唯一来源
 - 遇到的问题：无
 - 遗留事项：无
 - 下一步：T-D5 文章内容页
