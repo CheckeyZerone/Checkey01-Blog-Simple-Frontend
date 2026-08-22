@@ -3,7 +3,7 @@ project: checkey01-blog-simple-frontend
 branch: main
 remote: https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git
 current_phase: 7
-current_task: T-D4
+current_task: T-D5
 status: next
 last_log: 2026-08-22
 ---
@@ -25,12 +25,12 @@ last_log: 2026-08-22
 | 分支       | main                                                                |
 | 远程仓库   | https://github.com/CheckeyZerone/Checkey01-Blog-Simple-Frontend.git |
 | 当前阶段   | 7（设计稿落地 · 蔚蓝档案主题，T-D 系列）                            |
-| 当前任务   | T-D4（首页改造，见 [任务索引](#任务索引)）                          |
-| 最近完成   | T-D3 文章列表页（2026-08-22）                                       |
-| 最后提交   | 备案号配置化（`feat: 备案号写入本地配置...`，见提交历史）          |
+| 当前任务   | T-D5（文章内容页，见 [任务索引](#任务索引)）                        |
+| 最近完成   | T-D4 首页改造（2026-08-22）                                         |
+| 最后提交   | 首页改造（`feat(home): 首页改造...`，见提交历史）                  |
 | 未提交改动 | 无                                                                  |
 
-**下一步要做**：开始任务 T-D4（首页改造：Hero 对齐设计稿 + 最新文章三列网格 + 置顶星标）。任务详情见 `tasks/blue-archive/README.md` 与 `tasks/blue-archive/04-首页改造.md`。
+**下一步要做**：开始任务 T-D5（文章内容页：白卡片、返回、上一篇/下一篇）。任务详情见 `tasks/blue-archive/README.md` 与 `tasks/blue-archive/05-文章内容页.md`。
 
 ## 问题记录
 
@@ -117,7 +117,7 @@ last_log: 2026-08-22
 | T-D1 | 起点整理 | ✅ 2026-08-20 | [01-起点整理.md](tasks/blue-archive/01-起点整理.md) |
 | T-D2 | 全局设计系统 | ✅ 2026-08-21 | [02-全局设计系统.md](tasks/blue-archive/02-全局设计系统.md) |
 | T-D3 | 文章列表页（替换旧标签页） | ✅ 2026-08-22 | [03-文章列表页.md](tasks/blue-archive/03-文章列表页.md) |
-| T-D4 | 首页改造 | 待做 | [04-首页改造.md](tasks/blue-archive/04-首页改造.md) |
+| T-D4 | 首页改造 | ✅ 2026-08-22 | [04-首页改造.md](tasks/blue-archive/04-首页改造.md) |
 | T-D5 | 文章内容页 | 待做（优先） | [05-文章内容页.md](tasks/blue-archive/05-文章内容页.md) |
 | T-D6 | 友链页改造 | 待做 | [06-友链页改造.md](tasks/blue-archive/06-友链页改造.md) |
 | T-D7 | 搜索功能 | 待做（文章相关完成后） | [07-搜索功能.md](tasks/blue-archive/07-搜索功能.md) |
@@ -313,6 +313,15 @@ last_log: 2026-08-22
 - 学到了什么：隐私/环境相关数据用被忽略的本地配置文件保存；example 文件作为模板提交，供新环境复制
 - 遇到的问题：`site.local.ts` 被忽略后，新环境缺失会导致编译报错，需先复制 example 文件
 - 下一步：T-D4 首页改造
+
+### 2026-08-22（第 15 天）— T-D4 完成
+
+- 任务编号：T-D4
+- 今天做了什么：完成首页改造并提交（`feat(home): 首页改造——最新文章/相册占位/精选友链`）——Hero 对齐设计稿并复用全局按钮样式；首页新增最新文章三列网格（首篇星标优先）；`PostCard` 把「星标展示」与「通栏 wide」拆成独立 props；新增 `AlbumCard` 占位组件并在首页渲染最新相册；底部新增精选友链接条（最多 3 条）并跳转 `/links`；标签悬停动效抽取为 CSS 变量（`style(tag)` 提交）
+- 学到了什么：最新文章用排序后 `slice(0, 3)` 取前三条；三档响应式网格用 `repeat(3, minmax(0, 1fr))` → 2 列 → 1 列；公共组件先在首页消费，可提前验证复用性
+- 遇到的问题：无
+- 遗留事项：相册区「进入相册 →」仍是占位链接，待 T-D8 相册页完成后接入；首页置顶卡只显示星标、不再强制横跨整行
+- 下一步：T-D5 文章内容页
 
 ## 报错速查
 
